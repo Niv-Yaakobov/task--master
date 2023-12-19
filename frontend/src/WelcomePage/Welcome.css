@@ -1,0 +1,45 @@
+body{
+    background-color: rgba(69, 69, 87, 0.438);
+}
+.Welcome-container{
+    background-color: white;
+    border-radius: 70px;
+    padding: 60px;
+    width: 80%;
+    height: 100%;
+    margin: auto;
+    margin-top: 50px;
+    background-image: url('../images/welcomeImage.png');
+    background-repeat: no-repeat;
+    background-position: right;
+    min-width: 1050px;
+    display: block;
+}
+
+.Welcome-to-app-headline{
+    font-size: 100px;
+    font-family: cursive  ;
+    margin-bottom: 0;
+    margin-left: 40px;
+    margin-top: 0;
+}
+
+.login-signup-links{
+    width: 400px;
+    position: relative;
+    left: 8%;
+    text-align: center;
+}
+.link{
+    display: block;
+    background-color: orange;
+    margin: 80px;
+    font-size: 30px;
+    border-radius: 200px;
+    text-decoration: none;
+    color: white;
+    padding: 10px;
+}
+.link:hover{
+    background-color: rgb(210, 137, 2);
+}

@@ -1,0 +1,251 @@
+body{
+    background-color: rgba(69, 69, 87, 0.438);
+}
+.Home-container{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    display: grid;
+    grid-template-columns: .3fr 1.7fr;  
+    height: 97vh;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    border: 1px solid gray;
+    border-radius: 10px;
+}
+#menu-container{
+    border-radius: 4px;
+    background-color: rgba(210, 209, 209, 0.865);
+    min-width: 240px;
+    padding: 3px;
+}
+
+#tasks-side-container{
+    padding: 30px;
+    border-radius: 4px;
+    background-color: rgba(235, 233, 233, 0.89);
+}
+#tasks-container{
+    margin-left: 2cm;
+    margin-right: .7cm;
+    font-size: 20px;
+    overflow-y: auto;
+    height: 500px;
+}
+#username-title{
+    margin-top: 20px;
+    padding-bottom: .3cm;
+    border-bottom: 2px solid black;
+    width: 100%;
+    color: black;
+    font-size: 25px;
+    text-align: center;
+
+}
+nav{
+    max-height: 70%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+ul{
+    padding: 0%;
+    margin: 0%;
+}
+li{
+    font-size: large;
+    list-style-type: none;
+    padding: 0.3cm;
+    border-radius: 10px;
+    transition-duration: 0.4s;
+
+}
+li:hover{
+    background-color: rgba(240, 233, 233, .5);
+    cursor: pointer;
+}
+.list-icon{
+    color: rgb(67, 67, 250);
+    margin-left: 15px;
+    margin-top: 15px;
+
+}
+.group-icon{
+    color: rgb(227, 61, 245);
+    margin-left: 15px;
+    margin-top: 15px;
+
+}
+.lists-and-groups-text{
+    font-size: 23px;
+    margin-left: 30px;
+}
+#main-part-menu{
+    margin-bottom: 1.5cm;
+    margin-top: .5cm;
+}
+#add-groups-and-lists-button-container{
+    position: relative;
+    bottom: -2%;
+    display: flex;
+    align-items: center;
+    margin-left: 9px;
+}
+
+#lists-groups-part-menu{
+    margin-bottom: 40px;
+}
+#lists-groups-part-menu li{
+    margin-top: 10px;
+}
+
+
+#tasks-container-headline{
+    text-align: center;
+    font-size: 40px;
+    margin-top: 0;
+}
+.menu-icon{
+    width:  .7cm;
+    position: relative; top: .2cm;
+    margin-right: 3%;
+    margin-left: 3%;
+}
+.add-button{
+    border: none;
+    background-color:rgba(157, 156, 156, 0.696);
+    width: 90px;
+    height: 30px;  
+    border-radius: 20px;
+    margin: 10px;
+}
+.add-button:hover{
+    cursor: pointer;
+    background-color: orange;
+}
+
+.task{
+    display: flex;
+    align-items: center;
+    margin: .2cm;
+    padding: .5cm;
+    background-color: rgb(243, 239, 237);
+    border-radius: 10px;
+}
+
+.star-icon{
+    width:  .5cm;
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.task-checkbox{
+    background-color: rgb(248, 245, 243);
+    margin-right: .7cm;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;  
+    border-radius: 50%;
+    color:rgb(248, 245, 243);
+
+}
+
+.task-checkbox:hover{
+    cursor: pointer;
+    color:black;
+}
+.task-data{
+    align-items: center;
+}
+
+.date-text{
+    margin-top: 5px;
+    font-size: 15px;
+    clear: both;
+    display: block;
+}
+.in-group{
+    color: black;
+}
+.grop-task-checkbox{
+    background-color: transparent;
+    color: transparent;
+}
+.add-task-container{
+    position: absolute;
+    left: 24%;
+    bottom: 4%;
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgb(249, 244, 243);
+    border-radius: 30px;
+    padding-left: 20px;
+    margin-bottom: 25px;
+}
+#add-task-input{
+    flex: 1;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    padding: 20px;
+    font-size: 18px;
+}
+#add-task-button{
+    border:none;
+    outline: none;
+    background-color: orange;
+    padding: 16px 50px;
+    color:white;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius:30px;
+}
+#add-task-button:hover{
+    background-color: rgb(223, 148, 7);
+
+}
+#time-picking-input{
+    padding: 10px;
+    border:none;
+    outline: none;
+    margin-right: 1cm;
+    background-color: rgb(249, 244, 243);
+    font-size: 15px;
+}
+.task-text{
+    font-size: 21px;
+}
+.task-assigned{
+    color: rgb(81, 61, 214);
+}
+
+.task-container select {
+    margin-right: 10px;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: rgb(225, 224, 222);
+}
+
+/*--------------------------------------scroolbar styling-------------------------------*/
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
+  /*---------------------------------------------------------------------------------------*/

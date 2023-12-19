@@ -1,0 +1,37 @@
+{
+    "tasks":[
+        {"type":["importent","schedual"] , "content":"need to workout", "date":"1/1/2024" , "id":1 },
+
+        {"type":["schedual"] , "content":"need to upload files", "date":"13/12/2023" , "id":2 },
+
+        {"type":[] , "content":"need to drink water", "date":"" , "id":3 }
+    ],
+
+    "lists":[
+        {"title": "shopping" , "id":1,"listItems":[{"status":"bought" , "content":"milk" , "id":1},
+                                                {"status":"bought" , "content":"tomatos" , "id":2},
+                                                {"status":"unbought" , "content":"watermelon" , "id":3},
+                                                {"status":"unbought" , "content":"eggs" , "id":4},
+                                                {"status":"bought" , "content":"bread" , "id":5}]},
+
+        {"title":"items to Ramla", "id":2, "listItems":[{"status":"unbought" , "content":"headpohnes" , "id":1},
+                                                        {"status":"bought" , "content":"charger" , "id":2}]}
+    ],
+
+    "groups":[
+        {
+            "title": "Nitzanim" ,
+            "id": 1 ,
+            "members": ["niv200105@gmail.com", "matany9662@gmail.com"], 
+            "tasks": [
+                {"status":"initial", "content":"upload files" , "date": "","assigned":"niv200105@gmail.com","id":1} , 
+                  {"status":"finished" , "content":"create power point slide" , "date": "15/12/2023","assigned":"niv200105@gmail.com","id":2}
+                ]
+                },
+
+        {"title": "uni project" ,"id":2, "members": ["niv200105@gmail.com", "rom@gmail.com", "ariel@gmail.com"], 
+        "tasks": [{"status":"finished", "content":"do questions" , "date": "","assigned":"niv200105@gmail.com" ,"id":1} , 
+                {"status":"initial" , "content":"upload project" , "date": "1/1/2024","assigned":"rom@gmail.com","id":2},
+                {"status":"finished" , "content":"talk to prof" , "date": "27/12/2023","assigned":"ariel@gmail.com","id":3}]}
+    ]
+}
