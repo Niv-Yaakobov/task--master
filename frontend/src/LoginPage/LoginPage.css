@@ -8,7 +8,7 @@ body{
     padding-bottom: 20px;
   }
   
-  .login-container{
+  .login-container , .sign-up-container{
     background-color: white;
     border: none;
     outline: none;
@@ -19,16 +19,7 @@ body{
     margin: 120px auto 20px;
   }
 
-  .sign-up-container{
-    background-color: white;
-    border: none;
-    outline: none;
-    border-radius: 20px;
-    max-width: 640px;
-    height: 550px;
-    max-height: 550px;
-    margin: 100px auto 50px;
-  }
+
   .data-container{
     background-color: white;
     left: 24%;

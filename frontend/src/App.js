@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from './HomePage/Home';
 import Welcome from './WelcomePage/Welcome'
 import LoginPage from './LoginPage/LoginPage';
@@ -10,19 +10,19 @@ const App = () => {
     <Router>
       <div className="App">
         <Switch>
-          <Route exact path = '/'>
-            <Welcome/>
-          </Route>
-          <Route path="/Login">
-            <LoginPage/>
-          </Route>
-          <Route path="/SignUp">
-            <SignUpPage/>
-          </Route>
-          <Route path='/Home'>
-              <Home/>
-          </Route>
-        </Switch>
+            <Route exact path = '/'>
+              <Welcome/>
+            </Route>
+            <Route path="/LoginPage">
+              <LoginPage/>
+            </Route>
+            <Route path="/SignUpPage">
+              <SignUpPage/>
+            </Route>
+            <Route path='/Home'>
+                <Home/>
+            </Route>
+          </Switch>
       </div>
     </Router>
    );

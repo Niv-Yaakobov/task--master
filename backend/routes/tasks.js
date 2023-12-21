@@ -1,15 +1,12 @@
 const express = require('express')
 
-const {createTask} = require('../models/taskController')
 const router = express.Router()
 
-//Get all tasks
-router.get(('/') , (req,res)=>{
-    res.json({mssg:'GET all tasks'})
-})
 
 //Post new task
-router.post(('/') , createTask)
+router.post(('/') , (req,res)=>{
+    res.json({mssg:'POST a new task'})
+})
 
 //DELETE task
 router.delete(('/:id') , (req,res)=>{

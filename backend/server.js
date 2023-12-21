@@ -3,7 +3,7 @@ require('dotenv').config() // environment variables package
 const express = require('express')
 const mongoose = require('mongoose') // Mongodb helper
 
-const User = require('./models/userModel')
+const {createUser, loginUser , getUserInfo} = require('./controllers/userController')
 
 const tasksRoutes = require('./routes/tasks')
 const listsRoutes = require('./routes/lists')
@@ -28,19 +28,10 @@ app.use((req,res,next)=>{
 app.get('/' , (req,res) =>{
     res.json({mssg:'home page'})
 })
-app.post('/signUp' , async (req,res) => {
-    const {mail , password} = req.body
-    const tasks = []
-    const lists= []
-    const groups = []
-    try{
-        const user = await User.create({mail,password,tasks,lists,groups})
-        res.status(200).json(user)
-    }
-    catch(error){
-        res.status(400).json({error: error.message})
-    }
-})
+app.post('/signUp' , createUser)
+app.post('/login' , loginUser)
+app.post('/info', getUserInfo)
+
 
 app.use(('/tasks'), tasksRoutes)
 app.use(('/lists'), listsRoutes)

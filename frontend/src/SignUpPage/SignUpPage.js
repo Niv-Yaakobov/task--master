@@ -9,11 +9,7 @@ const SignUpPage = () => {
                 <h1 className="login-page-headline">Sign Up</h1>
                 <div className="data-container mail-container">
                     <img src={IMAGES.manImage} className="man-icon icon-login-page" alt="" />
-                    <input type="mail" name="mail" className="input-login-page" placeholder="Username"/>
-                </div>
-                <div className="data-container password-container">
-                    <img src={IMAGES.mailIconImage} className="lock-icon icon-login-page" alt=""/>
-                    <input type="password" name="password" className="input-login-page"placeholder="Mail"/>
+                    <input type="mail" name="mail" className="input-login-page" placeholder="Mail"/>
                 </div>
                 <div className="data-container password-container">
                     <img src={IMAGES.lockImage} className="lock-icon icon-login-page" alt=""/>

@@ -1,48 +1,34 @@
 const express = require('express')
 
-const Group = require('../models/groupModel')
-
 const router = express.Router()
 
-//Get all groups
-router.get(('/') , (req,res)=>{
-    res.json({mssg:'GET all groups'})
-})
 
-//GET a single group
+//GET a single group - from Groups collection
 router.get(('/:groupId') , (req,res)=>{
     res.json({mssg:'GET a single group'})
 })
 
-//POST new group task
-router.post(('/:groupId/') , (req,res)=>{
+//POST new group task - to Groups collection and Users collection
+router.post(('/:groupId') , (req,res)=>{
     res.json({mssg:'POST a new group task'})
 })
 
-//UPDATE task status
+//UPDATE task status - to Groups collection
 router.patch(('/:groupId/:groupTaskId') , (req,res)=>{
     res.json({mssg:'UPDATE a task status'})
 })
 
-//DELETE a group task
+//DELETE a group task - to Groups collection
 router.delete(('/:groupId/:groupTaskId') , (req,res)=>{
     res.json({mssg:'DELETE a group task'})
 })
 
-//Post new group
+//Post new group - to Groups collection and Users collection
 router.post(('/') , async (req,res)=>{
-    const {title, members} = req.body
-    const tasks = []
-    try{
-        const group = await Group.create({title, members, tasks})
-        res.status(200).json(group)
-    }
-    catch(error){
-        res.status(400).json({error: error.message})
-    }
+    res.json({mssg:'POST a group'})
 })
 
-//DELETE group
+//DELETE group - from Groups collection and Users collection
 router.delete(('/:groupId') , (req,res)=>{
     res.json({mssg:'DELETE a group'})
 })

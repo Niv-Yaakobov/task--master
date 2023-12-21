@@ -9,11 +9,11 @@ const groupSchema = new Schema({
     },
     tasks:{
         type: Array,
-        required: true
+        required:true,
     },
     members:{
-        type:Array,
-        required: true
+        type: Array,
+        required:true,
     }
 }, {timestamps: true})
 

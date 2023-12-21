@@ -1,13 +1,7 @@
 const express = require('express')
 
-const List = require('../models/listModel')
-
 const router = express.Router()
 
-//Get all lists
-router.get(('/') , (req,res)=>{
-    res.json({mssg:'GET all lists'})
-})
 
 //GET a single list
 router.get(('/:listId') , (req,res)=>{
@@ -15,7 +9,7 @@ router.get(('/:listId') , (req,res)=>{
 })
 
 //POST new item
-router.post(('/:listId/') , (req,res)=>{
+router.post(('/:listId') , (req,res)=>{
     res.json({mssg:'POST a new item'})
 })
 
@@ -31,15 +25,7 @@ router.delete(('/:listId/:itemId') , (req,res)=>{
 
 //Post new list
 router.post(('/') ,async (req,res)=>{
-    const listItems = []
-    const {title} = req.body
-    try{
-        const list = await List.create({title, listItems})
-        res.status(200).json(list)
-    }
-    catch(error){
-        res.status(400).json({error: error.message})
-    }
+    res.json({mssg: 'POST new list'})
 })
 
 //DELETE list
