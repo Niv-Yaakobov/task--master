@@ -3,11 +3,10 @@ require('dotenv').config() // environment variables package
 const express = require('express')
 const mongoose = require('mongoose') // Mongodb helper
 
-const {createUser, loginUser , getUserInfo} = require('./controllers/userController')
+const {createUser, loginUser} = require('./controllers/infoController')
 
-const tasksRoutes = require('./routes/tasks')
-const listsRoutes = require('./routes/lists')
-const groupsRoutes = require('./routes/groups')
+const routes = require('./routes/info')
+
 
 
 //create app
@@ -25,17 +24,11 @@ app.use((req,res,next)=>{
 
 
 //routes
-app.get('/' , (req,res) =>{
-    res.json({mssg:'home page'})
-})
+
 app.post('/signUp' , createUser)
 app.post('/login' , loginUser)
-app.post('/info', getUserInfo)
 
-
-app.use(('/tasks'), tasksRoutes)
-app.use(('/lists'), listsRoutes)
-app.use(('/groups'), groupsRoutes)
+app.use('/' ,routes )
 
 
 // connect to db

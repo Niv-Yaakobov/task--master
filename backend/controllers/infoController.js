@@ -8,10 +8,12 @@ const createUser = (req,res) =>{
         User.findOne({mail: mail})
             .then(returnUser => {
                 if (returnUser){
+                    //user already exist
                     res.status(200).json({messg: 'mail is used'})
                 }
                 else{
-                    const user = User.create({mail,password}).then(user => res.status(200).json(user))
+                    // send user Id - THE AUTHENTICATION DATA 
+                    const user = User.create({mail,password}).then(user => res.status(200).json({messg: 'signUp confirmed' , id : user.id}))
                 }
             })
     }
@@ -20,16 +22,17 @@ const createUser = (req,res) =>{
     }
 }
 
-// check login autontication
+// check login authentication
 const loginUser = (req,res) =>{
 
 const {mail, password} = req.body
     try{
-        // check if user's mail is already exists
+        // check if user credential are correct
         User.findOne({mail: mail , password:password})
             .then(user => {
                 if (user){
-                    res.status(200).json({messg: 'confirm login'})
+                    // send user Id - THE AUTHENTICATION DATA 
+                    res.status(200).json({messg: 'confirm login' , id : user.id})
                 }
                 else{
                     res.status(200).json({messg: 'mail or password is incorrect'})
@@ -43,13 +46,14 @@ const {mail, password} = req.body
 
 // GET user info
 const getUserInfo = (req,res) =>{
-    console.log('requesting info ')
-    const { mail } = req.body
+    const id = req.params['userId']
     try {
-        User.findOne({mail:mail})
+        //search by user id
+        User.findOne({_id:id})
         .then(user => {
             if (user){
-                res.status(200).json(user)
+                // sending user info
+                res.status(200).json({mail : user.mail , tasks : user.tasks ,lists: user.lists , groups : user.groups})
             }
             else{
                 res.status(200).json({messg: 'user does not exist'})
@@ -62,13 +66,21 @@ const getUserInfo = (req,res) =>{
 }
 
 
-// POST task 
+//-------------------------------------tasks--------------------------------------------------------------
+
+
+// Post new task
 
 // DELETE task
 
-// GET user groups 
+//-------------------------------------lists--------------------------------------------------------------
 
 // GET user lists
+
+//-------------------------------------groups--------------------------------------------------------------
+
+// GET user groups 
+
 
 
 module.exports = {
