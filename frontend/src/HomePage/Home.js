@@ -3,7 +3,7 @@ import MenuContainer from '../MenuContainer.js';
 import TaskSideContainer from '../TaskSideContainer.js';
 import { useState } from 'react';
 
-function Home() {
+function Home({userId}) {
 
   const [data, setData] = useState({kind:'task', info:{title:'My Day'}})
 

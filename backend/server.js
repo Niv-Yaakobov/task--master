@@ -1,6 +1,7 @@
 require('dotenv').config() // environment variables package
 
 const express = require('express')
+const cors = require('cors')
 const mongoose = require('mongoose') // Mongodb helper
 
 const {createUser, loginUser} = require('./controllers/infoController')
@@ -15,7 +16,7 @@ const app = express()
 
 
 //middleware
-app.use(express.json())
+app.use(express.json() , cors())
 
 app.use((req,res,next)=>{
     console.log(req.path, req.method)

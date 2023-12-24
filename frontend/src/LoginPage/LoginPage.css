@@ -80,4 +80,12 @@ body{
     color: rgb(214, 141, 4);
     text-decoration: underline;
   }
+
+  .error{
+    color:red;
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 0;
+  }
   

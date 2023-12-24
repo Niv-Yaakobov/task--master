@@ -9,11 +9,11 @@ const createUser = (req,res) =>{
             .then(returnUser => {
                 if (returnUser){
                     //user already exist
-                    res.status(200).json({messg: 'mail is used'})
+                    res.status(200).json({id:'0'})
                 }
                 else{
                     // send user Id - THE AUTHENTICATION DATA 
-                    const user = User.create({mail,password}).then(user => res.status(200).json({messg: 'signUp confirmed' , id : user.id}))
+                    const user = User.create({mail,password}).then(user => res.status(200).json({ id : user.id}))
                 }
             })
     }
@@ -24,7 +24,6 @@ const createUser = (req,res) =>{
 
 // check login authentication
 const loginUser = (req,res) =>{
-
 const {mail, password} = req.body
     try{
         // check if user credential are correct
@@ -32,10 +31,10 @@ const {mail, password} = req.body
             .then(user => {
                 if (user){
                     // send user Id - THE AUTHENTICATION DATA 
-                    res.status(200).json({messg: 'confirm login' , id : user.id})
+                    res.status(200).json({id : user.id})
                 }
                 else{
-                    res.status(200).json({messg: 'mail or password is incorrect'})
+                    res.status(200).json({ id : '0'})
                 }
             })
     }

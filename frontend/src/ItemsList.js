@@ -36,7 +36,7 @@ const ItemsList = ({listId}) => {
             { isPending && <div> Loading... </div> }
             {list && <div className="task-container">
                 {list.listItems.map((item) =>(
-                    <div className="task" id={item.id} key={item.id}>
+                    <div className="task" id={item._id} key={item._id}>
                         <button type="button" className="task-checkbox" >&#10004;</button>
                         <div className="task-data">
                         <div className="task-text" style={{ textDecoration:(item.status ==='bought') ? 'line-through' : 'none' }}>{item.content}</div>
