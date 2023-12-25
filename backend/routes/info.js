@@ -1,5 +1,5 @@
 const express = require('express')
-const {getUserInfo} = require('../controllers/infoController')
+const {getUserInfo,getTasks} = require('../controllers/infoController')
 const router = express.Router()
 
 
@@ -7,8 +7,11 @@ router.get('/:userId/info' , getUserInfo)
     
 //-------------------------------------tasks--------------------------------------------------------------
 
+//GET all tasks
+router.get('/:userId/tasks' , getTasks)
+
 //Post new task
-router.post(('/:userId/tasks') , (req,res)=>{
+router.post('/:userId/tasks', (req,res)=>{
     res.json({mssg:'POST a new task'})
 })
 
@@ -18,6 +21,8 @@ router.delete(('/:userId/tasks/:taskId') , (req,res)=>{
 })
 
 //-------------------------------------lists--------------------------------------------------------------
+
+router.get('/:userId/tasks' , getTasks)
 
 
 //GET a single list

@@ -3,15 +3,13 @@ import Home from './HomePage/Home';
 import Welcome from './WelcomePage/Welcome'
 import LoginPage from './LoginPage/LoginPage';
 import SignUpPage from './SignUpPage/SignUpPage';
-import { useState } from "react";
 
 
 const App = () => {
 
-  const [userId , setUserId] = useState(null)
-
   const handleUserId = (userId) =>{
-    setUserId(userId)
+    // Store userId in localStorage
+    localStorage.setItem('userId', userId);
   }
 
   return ( 
@@ -28,7 +26,7 @@ const App = () => {
               <SignUpPage handleUserId = {handleUserId}/>
             </Route>
             <Route path='/Home'>
-                <Home userId = {userId}/>
+                <Home/>
             </Route>
           </Switch>
       </div>

@@ -10,4 +10,6 @@ export const sunImage = require('./images/sun.png');
 export const starImage = require('./images/star.png');
 export const welcomeImage = require('./images/welcomeImage.png');
 export const garbageImage = require('./images/garbage.png');
+export const logoutImage = require('./images/logout.png');
+
 

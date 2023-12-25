@@ -67,6 +67,27 @@ const getUserInfo = (req,res) =>{
 
 //-------------------------------------tasks--------------------------------------------------------------
 
+//GET all tasks
+const getTasks = (req,res) =>{
+    const id = req.params['userId']
+    try {
+        //search by user id
+        User.findOne({_id:id})
+        .then(user => {
+            if (user){
+                // sending user info
+                res.status(200).json(user.tasks)
+            }
+            else{
+                res.status(200).json({messg: 'user does not exist'})
+            }
+        })
+    } 
+    catch(error){
+        res.status(400).json({error: error.message})
+    }
+}
+
 
 // Post new task
 
@@ -75,15 +96,38 @@ const getUserInfo = (req,res) =>{
 //-------------------------------------lists--------------------------------------------------------------
 
 // GET user lists
+const getLists = (req,res) =>{
+    const id = req.params['userId']
+    try {
+        //search by user id
+        User.findOne({_id:id})
+        .then(user => {
+            if (user){
+                // sending user info
+                res.status(200).json(user.lists)
+            }
+            else{
+                res.status(200).json({messg: 'user does not exist'})
+            }
+        })
+    } 
+    catch(error){
+        res.status(400).json({error: error.message})
+    }
+}
+//GET a single list
 
 //-------------------------------------groups--------------------------------------------------------------
 
 // GET user groups 
+
+//GET a single group
 
 
 
 module.exports = {
     createUser,
     loginUser,
-    getUserInfo
+    getUserInfo,
+    getTasks
 }
