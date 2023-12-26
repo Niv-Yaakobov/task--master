@@ -21,6 +21,7 @@ const TaskSideContainer = ({data, userId}) => {
 
     const handleLogout = () =>{
         localStorage.removeItem('userId');
+        localStorage.removeItem('userMail');
         history.push('/LoginPage');
     }
 

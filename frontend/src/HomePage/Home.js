@@ -17,12 +17,15 @@ function Home() {
   //handle the userId 
   const history = useHistory();
   const [userId, setUserId] = useState(null);
+  const [userMail, setUserMail] = useState(null);
 
   useEffect(() => {
     // Retrieve userId from localStorage
     const storedUserId = localStorage.getItem('userId');
-    if (storedUserId) {
+    const storedUserMail = localStorage.getItem('userMail')
+    if (storedUserId && storedUserMail) {
       setUserId(storedUserId);
+      setUserMail(storedUserMail);
     }
     else{
       history.push('/LoginPage');
@@ -32,7 +35,7 @@ function Home() {
 
   return (
     <div className="Home-container" >
-      <MenuContainer handleClickOnMenu ={handleClickOnMenu} userId = {userId}/>
+      <MenuContainer handleClickOnMenu ={handleClickOnMenu} userId = {userId} userMail ={userMail}/>
       <TaskSideContainer data = {data} userId={userId}/>
     </div>
   );

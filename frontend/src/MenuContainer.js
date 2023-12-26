@@ -1,13 +1,11 @@
 import TaskPartMenu from './TaskPartMenu.js';
 import ListAndGroupsPartMenu from './ListAndGroupsPartMenu.js'
 
-const MenuContainer = ({handleClickOnMenu ,userId}) => {
-
-    const userName = 'Niv'
+const MenuContainer = ({handleClickOnMenu ,userId ,userMail}) => {
 
     return ( 
         <div id="menu-container">
-            <div id="username-title">{userName}</div>
+            <div id="username-title">{userMail}</div>
             <nav>
                 <ul>
                   <TaskPartMenu handleClickOnMenu={handleClickOnMenu}/>

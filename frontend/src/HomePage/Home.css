@@ -42,7 +42,7 @@ body{
 
 }
 nav{
-    max-height: 70%;
+    max-height: 80%;
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -84,8 +84,8 @@ li:hover{
     margin-top: .5cm;
 }
 #add-groups-and-lists-button-container{
-    position: relative;
-    bottom: -2%;
+    position: absolute;
+    bottom: 4%;
     display: flex;
     align-items: center;
     margin-left: 9px;
@@ -197,7 +197,7 @@ li:hover{
     position: absolute;
     max-height: 70px;
     left: 40%;
-    bottom: 6%;
+    bottom: 12%;
 }
 .add-group-task-container #add-task-button{
     text-decoration: none;

@@ -5,7 +5,7 @@ import { useState } from 'react';
 import axios from 'axios'
 import { useHistory } from 'react-router-dom';
 
-const SignUpPage = ({handleUserId}) => {
+const SignUpPage = ({handleUserLogin}) => {
 
     const history = useHistory();
 
@@ -30,7 +30,7 @@ const SignUpPage = ({handleUserId}) => {
         }
         else{
             // Redirect to the home page upon successful signup
-            handleUserId(userId)
+            handleUserLogin(userId, mail)
             history.push('/home');
         }
     }

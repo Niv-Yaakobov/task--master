@@ -6,7 +6,7 @@ import axios from 'axios'
 import { useHistory } from 'react-router-dom';
 
 
-const LoginPage = ({handleUserId}) => {
+const LoginPage = ({handleUserLogin}) => {
 
     const history = useHistory();
 
@@ -31,7 +31,7 @@ const LoginPage = ({handleUserId}) => {
         }
         else{
             // Redirect to the home page upon successful signup
-            handleUserId(userId)
+            handleUserLogin(userId, mail)
             history.push('/home');
         }
     }
