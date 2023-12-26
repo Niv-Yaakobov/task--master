@@ -1,27 +1,14 @@
 import { useState, useEffect } from 'react';
 import * as IMAGES from './images';
 import useFetch from './useFetch';
-import { useHistory } from 'react-router-dom';
 
-const TaskList = ({ title }) => {
+const TaskList = ({ title, userId }) => {
 
-    const history = useHistory();
-    const [userId, setUserId] = useState(null);
     const [tasks, setTasks] = useState([]);
     const [allTasks, setAllTasks] = useState([]);
     const { data, isPending, error } = useFetch(userId ? `http://localhost:4001/${userId}/tasks` : null);
     
-    useEffect(() => {
-      // Retrieve userId from localStorage
-      const storedUserId = localStorage.getItem('userId');
-      if (storedUserId) {
-        setUserId(storedUserId);
-      }
-      else{
-        history.push('/LoginPage');
-      }
-    }, []); // Empty dependency array ensures this runs only once on component mount
-  
+    
     useEffect(() => {
       if (data) {
         setAllTasks(data);

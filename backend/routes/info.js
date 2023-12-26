@@ -1,5 +1,5 @@
 const express = require('express')
-const {getUserInfo,getTasks} = require('../controllers/infoController')
+const {getUserInfo,getTasks,getListsInfo,getGroupsInfo,getSingleList} = require('../controllers/infoController')
 const router = express.Router()
 
 
@@ -22,13 +22,12 @@ router.delete(('/:userId/tasks/:taskId') , (req,res)=>{
 
 //-------------------------------------lists--------------------------------------------------------------
 
-router.get('/:userId/tasks' , getTasks)
+//GET all lists' ids and title
+router.get('/:userId/lists' , getListsInfo)
 
 
 //GET a single list
-router.get(('/:userId/lists/:listId') , (req,res)=>{
-    res.json({mssg:'GET a single list'})
-})
+router.get(('/:userId/lists/:listId') , getSingleList)
 
 //POST new item to list
 router.post(('/:userId/lists/:listId') , (req,res)=>{
@@ -56,6 +55,9 @@ router.delete(('/:userId/lists/:listId') , (req,res)=>{
 })
 
 //-------------------------------------groups--------------------------------------------------------------
+
+//GET all groups' ids and title
+router.get('/:userId/groups' , getGroupsInfo)
 
 
 //GET a single group - from Groups collection

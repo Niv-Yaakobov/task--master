@@ -1,12 +1,19 @@
+import { useState, useEffect } from 'react'
 import * as IMAGES from './images'
 import useFetch from './useFetch'
 
 
 
-const ItemsList = ({listId}) => {
+const ItemsList = ({listId, userId}) => {
 
-    const {data:list, isPending, error} = useFetch("http://localhost:8000/lists/" + listId)
+    const [list, setList] = useState(null)
+    const {data, isPending, error} = useFetch((userId && listId) ? `http://localhost:4001/${userId}/lists/${listId}` : null)
 
+    useEffect(() => {
+        if (data) {
+            setList(data);
+        }
+      }, [data]);
 
     /*  //need to handle complete in the server
     const handleComplete = (id) =>{
@@ -34,12 +41,13 @@ const ItemsList = ({listId}) => {
         <div>
             { error && <div>{ error }</div> }
             { isPending && <div> Loading... </div> }
-            {list && <div className="task-container">
-                {list.listItems.map((item) =>(
+            {list && 
+            <div className="task-container">
+                {list.items.length > 0 && list.items.map((item) =>(
                     <div className="task" id={item._id} key={item._id}>
                         <button type="button" className="task-checkbox" >&#10004;</button>
                         <div className="task-data">
-                        <div className="task-text" style={{ textDecoration:(item.status ==='bought') ? 'line-through' : 'none' }}>{item.content}</div>
+                        <div className="task-text" style={{ textDecoration:(item.status === true) ? 'line-through' : 'none' }}>{item.content}</div>
                         </div>
                         <img src= {IMAGES.garbageImage} className="star-icon" alt="icon"/>
                     </div>

@@ -72,11 +72,11 @@ const getTasks = (req,res) =>{
     const id = req.params['userId']
     try {
         //search by user id
-        User.findOne({_id:id})
-        .then(user => {
-            if (user){
+        User.findOne({_id:id },'tasks')
+        .then(data => {
+            if (data){
                 // sending user info
-                res.status(200).json(user.tasks)
+                res.status(200).json(data.tasks)
             }
             else{
                 res.status(200).json({messg: 'user does not exist'})
@@ -95,16 +95,17 @@ const getTasks = (req,res) =>{
 
 //-------------------------------------lists--------------------------------------------------------------
 
-// GET user lists
-const getLists = (req,res) =>{
+// GET user lists information
+const getListsInfo = (req,res) =>{
     const id = req.params['userId']
     try {
         //search by user id
-        User.findOne({_id:id})
-        .then(user => {
-            if (user){
+        User.findOne({_id:id },'lists._id lists.title')
+        .then(data => {
+            console.log(data.lists)
+            if (data){
                 // sending user info
-                res.status(200).json(user.lists)
+                res.status(200).json(data.lists)
             }
             else{
                 res.status(200).json({messg: 'user does not exist'})
@@ -116,11 +117,53 @@ const getLists = (req,res) =>{
     }
 }
 //GET a single list
-
+const getSingleList = (req,res) =>{
+    const { userId, listId } = req.params
+    console.log(userId, listId)
+    try {
+        //search by user id and get the lists array
+        User.findOne({_id:userId },'lists')
+        .then(data => {
+            if (data){
+                const list = data.lists.find((list) => list._id.toString() === listId)
+                if(list)
+                    // sending user info
+                    res.status(200).json(list)
+                else
+                    res.status(200).json({messg: 'list does not exist'})
+            }
+            else{
+                res.status(200).json({messg: 'user does not exist'})
+            }
+        })
+    } 
+    catch(error){
+        res.status(400).json({error: error.message})
+    }
+}
 //-------------------------------------groups--------------------------------------------------------------
 
-// GET user groups 
 
+// GET user groups information
+const getGroupsInfo = (req,res) =>{
+    const id = req.params['userId']
+    try {
+        //search by user id
+        User.findOne({_id:id },'groups._id groups.title')
+        .then(data => {
+            if (data){
+                // sending user info
+                res.status(200).json(data.groups)
+            }
+            else{
+                res.status(200).json({messg: 'user does not exist'})
+            }
+        })
+    } 
+    catch(error){
+        res.status(400).json({error: error.message})
+    }
+}
 //GET a single group
 
 
@@ -129,5 +172,8 @@ module.exports = {
     createUser,
     loginUser,
     getUserInfo,
-    getTasks
+    getTasks,
+    getListsInfo,
+    getGroupsInfo,
+    getSingleList
 }

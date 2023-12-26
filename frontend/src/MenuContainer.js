@@ -1,7 +1,7 @@
 import TaskPartMenu from './TaskPartMenu.js';
 import ListAndGroupsPartMenu from './ListAndGroupsPartMenu.js'
 
-const MenuContainer = ({handleClickOnMenu}) => {
+const MenuContainer = ({handleClickOnMenu ,userId}) => {
 
     const userName = 'Niv'
 
@@ -11,7 +11,7 @@ const MenuContainer = ({handleClickOnMenu}) => {
             <nav>
                 <ul>
                   <TaskPartMenu handleClickOnMenu={handleClickOnMenu}/>
-                  <ListAndGroupsPartMenu handleClickOnMenu={handleClickOnMenu}/>
+                  <ListAndGroupsPartMenu handleClickOnMenu={handleClickOnMenu} userId = {userId}/>
                 </ul>
             </nav>
             <div id="add-groups-and-lists-button-container">
