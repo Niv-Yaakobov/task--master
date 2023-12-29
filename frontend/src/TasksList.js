@@ -6,6 +6,8 @@ import axios from 'axios'
 
 const TaskList = ({ title, userId }) => {
 
+    const [isButtonDisabled, setButtonDisabled] = useState(false);
+
     const [tasks, setTasks] = useState([]);
     const [allTasks, setAllTasks] = useState([]);
     const { data, isPending, error } = useFetch(userId ? `http://localhost:4001/${userId}/tasks` : null);
@@ -36,7 +38,7 @@ const TaskList = ({ title, userId }) => {
             } 
             else if (title === 'Important') 
             {
-                const newList = allTasks.filter((task) => task.type.includes('importent'));
+                const newList = allTasks.filter((task) => task.type.includes('important'));
                 setTasks(newList);
             } 
             else {
@@ -49,19 +51,55 @@ const TaskList = ({ title, userId }) => {
         renderList();
       }, [title, allTasks]);
 
+    const toggleTaskImportance = async (task) =>{
+        setButtonDisabled(true)
+        // Create a copy of the tasks array
+        const updatedTasks = [...tasks];
 
-  const renderImage = (task) => {
-    if (task.type.includes('importent')) {
-      return <img src={IMAGES.starImage} className="star-icon" alt="icon" />;
+        const taskIndex = updatedTasks.findIndex((t) => t._id === task._id);
+
+        if (taskIndex !== -1) {
+          // Clone the task to avoid mutating the state directly
+          const updatedTask = { ...updatedTasks[taskIndex] };
+
+          const importantIndex = updatedTask.type.indexOf('important');
+
+          if (importantIndex !== -1) {
+            // If 'important' is present, remove it
+            updatedTask.type.splice(importantIndex, 1);
+          } else {
+            // If 'important' is not present, add it
+            updatedTask.type.push('important');
+          }
+
+          // Update the specific task in the copied array
+          updatedTasks[taskIndex] = updatedTask;
+
+          // Update the state with the new tasks array
+          setTasks(updatedTasks);
+       }
+       await axios.patch(`http://localhost:4001/${userId}/tasks/${task._id}`);
+       setButtonDisabled(false)
     }
-    return <img src={IMAGES.emptyStarImage} className="star-icon" alt="icon" />;
+
+  const renderStarIamge = (task) => {
+    if (task.type.includes('important')) {
+      return <img src={IMAGES.starImage} className="star-icon" alt="icon" 
+      onClick={() => {
+        if(!isButtonDisabled)
+          toggleTaskImportance(task)}}/>;
+    }
+    return <img src={IMAGES.emptyStarImage} className="star-icon" alt="icon" 
+    onClick={() => {
+      if(!isButtonDisabled)
+        toggleTaskImportance(task)}}/>;
   };
 
   const handleComplete = async (id) => {
     //remove from the tasks list
     const newAlLTasksList = allTasks.filter((task) => task._id !== id)
     setAllTasks(newAlLTasksList)
-    const deleteConfirmation = await axios.delete(`http://localhost:4001/${userId}/tasks/${id}`);
+    await axios.delete(`http://localhost:4001/${userId}/tasks/${id}`);
   }
 
   return (
@@ -79,7 +117,7 @@ const TaskList = ({ title, userId }) => {
                 <div className="task-text">{task.content}</div>
                 <div className="date-text"> {task.date}</div>
               </div>
-              {renderImage(task)}
+              {renderStarIamge(task)}
             </div>
           ))}
         </div>

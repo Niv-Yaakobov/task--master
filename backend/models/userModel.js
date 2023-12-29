@@ -1,8 +1,47 @@
 const mongoose = require('mongoose')
 
-const Schema = mongoose.Schema
+const itemSchema = new mongoose.Schema({
+    status: {
+        type: Boolean,
+        default: false,
+        required: true,
+    },
+    content: {
+        type: String,
+        required: true,
+    }
+});
 
-const userSchema = new Schema({
+const listSchema = new mongoose.Schema({
+    title: {
+        type: String,
+        required: true,
+    },
+    items: {
+        type: [itemSchema.schema],  // Array of embedded items
+        default:[],
+        required: true,
+    },
+});
+
+const taskSchema = new mongoose.Schema({
+    type: {
+        type: Array,
+        default: [],
+        required: true,
+    },
+    content: {
+        type: String,
+        required: true,
+    },
+    date: {
+        type: String,
+        default:'',
+        required: true,
+    },
+});
+
+const userSchema = new mongoose.Schema({
     mail:{
         type: String,
         required: true
@@ -12,12 +51,12 @@ const userSchema = new Schema({
         required: true
     },
     tasks:{
-        type: Array,
+        type: [taskSchema.schema], // Array of embedded tasks
         default:[],
         required:true,
     },
     lists:{
-        type: Array,
+        type: [listSchema.schema],// Array of embedded lists
         default:[],
         required:true,
     },

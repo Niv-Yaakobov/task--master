@@ -1,6 +1,6 @@
 const express = require('express')
 const {getUserInfo,getTasks,getListsInfo,getGroupsInfo,getSingleList,
-        getSingleGroup,deleteTask,deleteListItem,updateItemStatus} = require('../controllers/infoController')
+        getSingleGroup,deleteTask,deleteListItem,toggleItemStatus,toggleTaskImportance} = require('../controllers/infoController')
 const router = express.Router()
 
 
@@ -15,6 +15,8 @@ router.get('/:userId/tasks' , getTasks)
 router.post('/:userId/tasks', (req,res)=>{
     res.json({mssg:'POST a new task'})
 })
+//UPDATE task importance
+router.patch(('/:userId/tasks/:taskId') , toggleTaskImportance)
 
 //DELETE task
 router.delete(('/:userId/tasks/:taskId') ,deleteTask)
@@ -34,7 +36,7 @@ router.post(('/:userId/lists/:listId') , (req,res)=>{
 })
 
 //UPDATE item status
-router.patch(('/:userId/lists/:listId/:itemId') , updateItemStatus)
+router.patch(('/:userId/lists/:listId/:itemId') , toggleItemStatus)
 
 //DELETE a item in a list
 router.delete(('/:userId/lists/:listId/:itemId') ,deleteListItem)

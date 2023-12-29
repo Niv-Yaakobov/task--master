@@ -5,6 +5,7 @@ import axios from 'axios'
 
 const ItemsList = ({listId, userId}) => {
 
+    const [isButtonDisabled, setButtonDisabled] = useState(false);
     const [list, setList] = useState(null)
     const {data, isPending, error} = useFetch((userId && listId) ? `http://localhost:4001/${userId}/lists/${listId}` : null)
 
@@ -21,7 +22,7 @@ const ItemsList = ({listId, userId}) => {
         return <span>&#10004;</span>
     }
 
-    const handleComplete = async (id) =>{
+    const toggleItemStatus = async (id) =>{
         //copy the list's item array
         const updatedListItems = list.items.filter(() => true);
         //tracing the index of the given item
@@ -31,8 +32,8 @@ const ItemsList = ({listId, userId}) => {
         // shallow copy list and update the items array 
         const newList = ({...list , items:updatedListItems})
         setList(newList);
-        const statusChangeConfiramtion = await axios.patch(`http://localhost:4001/${userId}/lists/${listId}/${id}`);
-        console.log(statusChangeConfiramtion)
+        await axios.patch(`http://localhost:4001/${userId}/lists/${listId}/${id}`);
+        setButtonDisabled(false)
      };
 
     const handleDelete = async (id) => {
@@ -43,11 +44,10 @@ const ItemsList = ({listId, userId}) => {
         const newList = ({...list , items: updatedListItems})
         setList(newList)
         //delete request to the server
-        const deleteConfiramtion = await axios.delete(`http://localhost:4001/${userId}/lists/${listId}/${id}`);
+        await axios.delete(`http://localhost:4001/${userId}/lists/${listId}/${id}`);
     }
 
 
-    // -- for V BUTTON
     return ( 
         <div>
             { error && <div>{ error }</div> }
@@ -56,7 +56,11 @@ const ItemsList = ({listId, userId}) => {
             <div className="task-container">
                 {list.items.length > 0 && list.items.map((item) =>(
                     <div className="task" id={item._id} key={item._id}>
-                        <button type="button" className="task-checkbox" onClick={() => handleComplete(item._id)}>{renderIcon(item.status)}</button>
+                        <button type="button" className="task-checkbox" disabled={isButtonDisabled}
+                         onClick={() =>{ 
+                            setButtonDisabled(true)
+                            toggleItemStatus(item._id)}
+                            }>{renderIcon(item.status)}</button>
                         <div className="task-data">
                         <div className="task-text" style={{ textDecoration:(item.status === true) ? 'line-through' : 'none' }}>{item.content}</div>
                         </div>

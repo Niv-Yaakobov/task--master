@@ -1,5 +1,5 @@
 const User = require('../models/userModel')
-const Group = require('../models/groupModle')
+const Group = require('../models/groupModel')
 const mongoose = require('mongoose')
 const ObjectId = mongoose.Types.ObjectId;
 
@@ -69,7 +69,7 @@ const getUserInfo = (req,res) =>{
 }
 
 
-//-------------------------------------tasks--------------------------------------------------------------
+//-------------------------------------tasks--------------------------------------------------------------//
 
 //GET all tasks
 const getTasks = (req,res) =>{
@@ -93,9 +93,43 @@ const getTasks = (req,res) =>{
 }
 
 
-// Post new task
+// Post new task--------------------------------------------------
 
-// DELETE task
+//UPDATE task importance-------------------------------------------
+const toggleTaskImportance = async (req, res) => {
+    const { userId, taskId } = req.params;
+  
+    try {
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).json({ success: false, message: 'User not found' });
+      }
+      const task = user.tasks.find((task) => task._id.equals(taskId));
+      if (!task) {
+        return res.status(404).json({ success: false, message: 'task not found' });
+      }
+      
+    // Toggle the importance
+    const importantIndex = task.type.indexOf('important');
+
+          if (importantIndex !== -1) {
+            // If 'important' is present, remove it
+            task.type.splice(importantIndex, 1);
+          } else {
+            // If 'important' is not present, add it
+            task.type.push('important');
+          }
+
+    // Mark the array as modified
+    user.markModified('tasks');
+
+    await user.save();
+      return res.status(200).json({ success: true, message: 'task importance toggled successfully' });
+    } catch (error) {
+      return res.status(500).json({ success: false, message: error.message });
+    }
+  };
+// DELETE task-----------------------------------------------------
 const deleteTask = async (req, res) => {
     const { userId, taskId } = req.params;
     try {
@@ -117,7 +151,7 @@ const deleteTask = async (req, res) => {
       res.status(400).json({ error: error.message });
     }
   };
-//-------------------------------------lists--------------------------------------------------------------
+//-------------------------------------lists--------------------------------------------------------------//
 
 // GET user lists information
 const getListsInfo = (req,res) =>{
@@ -165,39 +199,35 @@ const getSingleList = (req,res) =>{
 }
 
 //Update item status
-const updateItemStatus = async (req, res) => {
+const toggleItemStatus = async (req, res) => {
     const { userId, listId, itemId } = req.params;
+  
     try {
-      // Convert the id (string) to an objectId type
-      const itemObjectId = new ObjectId(itemId);
-      const listObjectId = new ObjectId(listId);
-  
-      // Find the user by userId and update the status field in the specified item
-      const updatedUser = await User.findOneAndUpdate(
-        {
-          _id: userId,
-          'lists._id': listObjectId,
-          'lists.items._id': itemObjectId,
-        },
-        { $set: { 'lists.$[list].items.$[item].status': { $not: '$lists.$[list].items.$[item].status' } } },
-        {
-          arrayFilters: [
-            { 'list._id': listObjectId },
-            { 'item._id': itemObjectId }
-          ],
-          new: true,
-        }
-      );
-  
-      if (updatedUser) {
-        res.status(200).json({ messg: 'Item status updated successfully' });
-      } else {
-        res.status(404).json({ messg: 'The item, list, or user does not exist' });
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).json({ success: false, message: 'User not found' });
       }
+      const list = user.lists.find((list) => list._id.equals(listId));
+      if (!list) {
+        return res.status(404).json({ success: false, message: 'List not found' });
+      }
+      const item = list.items.find((item) => item._id.equals(itemId));
+      if (!item) {
+        return res.status(404).json({ success: false, message: 'Item not found' });
+      }
+      // Toggle the status
+    item.status = !item.status;
+
+    // Mark the array as modified
+    user.markModified('lists');
+
+    await user.save();
+      return res.status(200).json({ success: true, message: 'Item status toggled successfully' });
     } catch (error) {
-      res.status(400).json({ error: error.message });
+      return res.status(500).json({ success: false, message: error.message });
     }
   };
+  
 
 // DELETE Item in a list
 const deleteListItem = async (req, res) => {
@@ -286,5 +316,6 @@ module.exports = {
     getSingleGroup,
     deleteTask,
     deleteListItem,
-    updateItemStatus
+    toggleItemStatus,
+    toggleTaskImportance
 }
