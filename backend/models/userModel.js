@@ -13,14 +13,17 @@ const userSchema = new Schema({
     },
     tasks:{
         type: Array,
+        default:[],
         required:true,
     },
     lists:{
         type: Array,
+        default:[],
         required:true,
     },
     groups:{
         type: Array,
+        default:[],
         required:true,
     }
 }, {timestamps: true})

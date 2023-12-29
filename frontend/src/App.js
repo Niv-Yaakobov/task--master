@@ -3,7 +3,6 @@ import Home from './HomePage/Home';
 import Welcome from './WelcomePage/Welcome'
 import LoginPage from './LoginPage/LoginPage';
 import SignUpPage from './SignUpPage/SignUpPage';
-import { useState } from "react";
 
 
 const App = () => {

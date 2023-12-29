@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import * as IMAGES from './images';
 import useFetch from './useFetch';
+import axios from 'axios'
+
 
 const TaskList = ({ title, userId }) => {
 
@@ -16,7 +18,8 @@ const TaskList = ({ title, userId }) => {
     }, [data]);
     
     const renderList = () => {
-
+        if(allTasks.length === 0)
+          setTasks([])
         if (allTasks.length > 0) {
             if (title === 'My Day') {
             const date = new Date();
@@ -54,11 +57,12 @@ const TaskList = ({ title, userId }) => {
     return <img src={IMAGES.emptyStarImage} className="star-icon" alt="icon" />;
   };
 
-  const handleComplete = (id) => {
-    const newList = tasks.filter((task) => task._id !== id);
-    setTasks(newList);
-    // -------- need to send a DELETE request to the server ---------------
-  };
+  const handleComplete = async (id) => {
+    //remove from the tasks list
+    const newAlLTasksList = allTasks.filter((task) => task._id !== id)
+    setAllTasks(newAlLTasksList)
+    const deleteConfirmation = await axios.delete(`http://localhost:4001/${userId}/tasks/${id}`);
+  }
 
   return (
     <div>
@@ -66,7 +70,7 @@ const TaskList = ({ title, userId }) => {
       {isPending && <div> Loading... </div>}
       {allTasks && (
         <div className="task-container">
-          {tasks.map((task) => (
+          {tasks.length > 0 && tasks.map((task) => (
             <div className="task" id={task._id} key={task._id}>
               <button type="button" className="task-checkbox" onClick={() => handleComplete(task._id)}>
                 &#10004;

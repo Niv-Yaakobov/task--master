@@ -9,10 +9,12 @@ const groupSchema = new Schema({
     },
     tasks:{
         type: Array,
+        default:[],
         required:true,
     },
     members:{
         type: Array,
+        default:[],
         required:true,
     }
 }, {timestamps: true})

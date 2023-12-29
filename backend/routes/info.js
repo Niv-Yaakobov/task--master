@@ -1,5 +1,6 @@
 const express = require('express')
-const {getUserInfo,getTasks,getListsInfo,getGroupsInfo,getSingleList} = require('../controllers/infoController')
+const {getUserInfo,getTasks,getListsInfo,getGroupsInfo,getSingleList,
+        getSingleGroup,deleteTask,deleteListItem,updateItemStatus} = require('../controllers/infoController')
 const router = express.Router()
 
 
@@ -16,9 +17,7 @@ router.post('/:userId/tasks', (req,res)=>{
 })
 
 //DELETE task
-router.delete(('/:userId/tasks/:taskId') , (req,res)=>{
-    res.json({mssg:'DELETE a new task'})
-})
+router.delete(('/:userId/tasks/:taskId') ,deleteTask)
 
 //-------------------------------------lists--------------------------------------------------------------
 
@@ -35,14 +34,10 @@ router.post(('/:userId/lists/:listId') , (req,res)=>{
 })
 
 //UPDATE item status
-router.patch(('/:userId/lists/:listId/:itemId') , (req,res)=>{
-    res.json({mssg:'UPDATE a item status'})
-})
+router.patch(('/:userId/lists/:listId/:itemId') , updateItemStatus)
 
-//DELETE a item
-router.delete(('/:userId/lists/:listId/:itemId') , (req,res)=>{
-    res.json({mssg:'DELETE a item'})
-})
+//DELETE a item in a list
+router.delete(('/:userId/lists/:listId/:itemId') ,deleteListItem)
 
 //Post new list
 router.post(('/:userId/lists/') , (req,res)=>{
@@ -61,9 +56,7 @@ router.get('/:userId/groups' , getGroupsInfo)
 
 
 //GET a single group - from Groups collection
-router.get(('/:userId/groups/:groupId') , (req,res)=>{
-    res.json({mssg:'GET a single group'})
-})
+router.get(('/:userId/groups/:groupId') , getSingleGroup)
 
 //POST new group task - to Groups collection and Users collection
 router.post(('/:userId/groups/:groupId') , (req,res)=>{

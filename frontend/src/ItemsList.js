@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
 import * as IMAGES from './images'
 import useFetch from './useFetch'
-
-
+import axios from 'axios'
 
 const ItemsList = ({listId, userId}) => {
 
@@ -14,29 +13,41 @@ const ItemsList = ({listId, userId}) => {
             setList(data);
         }
       }, [data]);
+    
+    const renderIcon = (status) => {
+    if (status === true)
+        return <span>&#10006;</span>
+    else
+        return <span>&#10004;</span>
+    }
 
-    /*  //need to handle complete in the server
-    const handleComplete = (id) =>{
-        const newList = list.filter(() => true);
-        const itemIndex = newList.findIndex( (item) => item.id === id);
-        const item = newList[itemIndex];
-        if (item.status === 'bought')
-            item.status = 'unbought'
-        else 
-            item.status = 'bought'
+    const handleComplete = async (id) =>{
+        //copy the list's item array
+        const updatedListItems = list.items.filter(() => true);
+        //tracing the index of the given item
+        const itemIndex = updatedListItems.findIndex( (item) => item._id === id);
+        const item = updatedListItems[itemIndex];
+        item.status = !item.status;
+        // shallow copy list and update the items array 
+        const newList = ({...list , items:updatedListItems})
+        setList(newList);
+        const statusChangeConfiramtion = await axios.patch(`http://localhost:4001/${userId}/lists/${listId}/${id}`);
+        console.log(statusChangeConfiramtion)
+     };
 
+    const handleDelete = async (id) => {
+        // build a new array without the deleted item 
+        const updatedListItems = list.items.filter((item) => item._id !== id );
+        console.log(updatedListItems)
+        // shallow copy the original list and replacing the items array with the new one
+        const newList = ({...list , items: updatedListItems})
         setList(newList)
-    };
-
-    //need to handle delete in the server 
-    const handleDelete = (id) => {
-        const updatedList = list.filter((item) => item.id !== id );
-        setList(updatedList);
-    }*/
+        //delete request to the server
+        const deleteConfiramtion = await axios.delete(`http://localhost:4001/${userId}/lists/${listId}/${id}`);
+    }
 
 
-    //onClick={() => handleComplete(item.id)} -- for V BUTTON
-    //onClick={() => handleDelete(item.id)} --- FOR DELETE BUTTON
+    // -- for V BUTTON
     return ( 
         <div>
             { error && <div>{ error }</div> }
@@ -45,11 +56,12 @@ const ItemsList = ({listId, userId}) => {
             <div className="task-container">
                 {list.items.length > 0 && list.items.map((item) =>(
                     <div className="task" id={item._id} key={item._id}>
-                        <button type="button" className="task-checkbox" >&#10004;</button>
+                        <button type="button" className="task-checkbox" onClick={() => handleComplete(item._id)}>{renderIcon(item.status)}</button>
                         <div className="task-data">
                         <div className="task-text" style={{ textDecoration:(item.status === true) ? 'line-through' : 'none' }}>{item.content}</div>
                         </div>
-                        <img src= {IMAGES.garbageImage} className="star-icon" alt="icon"/>
+                        <img src= {IMAGES.garbageImage} className="star-icon" alt="icon"
+                        onClick={() => handleDelete(item._id)}/>
                     </div>
                 ))}
             </div>}
