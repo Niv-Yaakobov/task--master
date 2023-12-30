@@ -1,5 +1,5 @@
-const User = require('../models/userModel')
-const Group = require('../models/groupModel')
+const {Task, User,List,Item} = require('../models/userModel')
+const {Group, GroupTask} = require('../models/groupModel')
 const mongoose = require('mongoose')
 const ObjectId = mongoose.Types.ObjectId;
 
@@ -94,7 +94,31 @@ const getTasks = (req,res) =>{
 
 
 // Post new task--------------------------------------------------
-
+const createNewTask = async (req,res) =>{
+    const userId = req.params['userId']
+    const {content, date} = req.body
+    const type = []
+    if(date !== '')
+        type.push('scheduled')
+    try {
+        // Create a new task using the Task model
+        const newTask = new Task({ type,content, date });
+        // Update the user document using findOneAndUpdate
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: userId },
+          { $push: { tasks: newTask } },
+          { new: true }
+        );
+    
+        if (updatedUser) {
+          res.status(201).json({ message: 'Task created successfully', task:newTask});
+        } else {
+          res.status(404).json({ message: 'User not found' });
+        }
+      } catch (error) {
+        res.status(500).json({ error: error.message });
+      }
+    };
 //UPDATE task importance-------------------------------------------
 const toggleTaskImportance = async (req, res) => {
     const { userId, taskId } = req.params;
@@ -124,6 +148,7 @@ const toggleTaskImportance = async (req, res) => {
     user.markModified('tasks');
 
     await user.save();
+
       return res.status(200).json({ success: true, message: 'task importance toggled successfully' });
     } catch (error) {
       return res.status(500).json({ success: false, message: error.message });
@@ -198,6 +223,30 @@ const getSingleList = (req,res) =>{
     }
 }
 
+//POST new item to list
+const createNewItem = async (req,res) =>{
+    const {userId,listId} = req.params
+    const {content} = req.body
+    const status = false
+    try {
+        // Create a new task using the Task model
+        const newItem = new Item({ status, content });
+        // Update the user document using findOneAndUpdate
+        const updatedUser = await User.findOneAndUpdate(
+            { _id: userId, 'lists._id': new ObjectId(listId) },
+            { $push: { 'lists.$.items': newItem } },
+            { new: true }
+        )
+    
+        if (updatedUser) {
+          res.status(201).json({ message: 'Task created successfully', item: newItem});
+        } else {
+          res.status(404).json({ message: 'User not found' });
+        }
+      } catch (error) {
+        res.status(500).json({ error: error.message });
+      }
+    };
 //Update item status
 const toggleItemStatus = async (req, res) => {
     const { userId, listId, itemId } = req.params;
@@ -277,13 +326,11 @@ const getGroupsInfo = (req,res) =>{
 //GET a single group
 const getSingleGroup = (req,res) =>{
     const { userId, groupId } = req.params
-    console.log(userId , groupId)
     try {
         //search by user id and get the lists array
         Group.findOne({_id: groupId})
         .then(data => {
             if (data){
-                console.log(data)
                 //check if the user is a member of the group
                 if(data.members.some((member) => member._id.toString() === userId))
                 {
@@ -303,8 +350,76 @@ const getSingleGroup = (req,res) =>{
         res.status(400).json({error: error.message})
     }
 }
+//POST new group task - to Groups collection
+const createNewGroupTask = async (req,res) =>{
+    const {userId,groupId} = req.params
+    const {content,date,selectedMember} = req.body
+    const status = false
+    try {
+        // Create a new task using the Task model
+        const newGroupTask = new GroupTask({content, date, assigned:selectedMember});
+        // Update the user document using findOneAndUpdate
+        const updatedGroup = await Group.findOneAndUpdate(
+            { _id: groupId},
+            { $push: { 'tasks': newGroupTask } },
+            { new: true }
+        )
+    
+        if (updatedGroup) {
+          res.status(201).json({ message: 'Task created successfully', task: newGroupTask});
+        } else {
+          res.status(404).json({ message: 'User not found' });
+        }
+      } catch (error) {
+        res.status(500).json({ error: error.message });
+      }
+    };
 
+//Update group task status
+const toggleGroupTaskStatus = async (req, res) => {
+    const { userId, groupId, groupTaskId } = req.params;
+  
+    try {
+      const group = await Group.findById(groupId);
+      if (!group) {
+        return res.status(404).json({ success: false, message: 'group not found' });
+      }
+      const task = group.tasks.find((task) => task._id.equals(groupTaskId));
+      if (!task) {
+        return res.status(404).json({ success: false, message: 'task not found' });
+      }
 
+    // Toggle the status
+    task.status = !task.status;
+    // Mark the array as modified
+    group.markModified('tasks');
+
+    await group.save();
+      return res.status(200).json({ success: true, message: 'task status toggled successfully' });
+    } catch (error) {
+      return res.status(500).json({ success: false, message: error.message });
+    }
+  };
+
+//DELETE group task - from Groups Collection
+const deleteGroupTask = async (req, res) => {
+    const { userId, groupId,groupTaskId } = req.params;
+    try {
+      // Find the group by groupId and update the tasks array
+        const updatedGroup = await Group.findOneAndUpdate(
+            { _id: groupId},
+            { $pull: { 'tasks': { _id: new ObjectId(groupTaskId) } } },
+            { new: true }
+        )
+      if (updatedGroup) {
+        res.status(200).json({ messg: 'Task deleted successfully' });
+      } else {
+        res.status(404).json({ messg: 'The task or user does not exist' });
+      }
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  };
 module.exports = {
     createUser,
     loginUser,
@@ -317,5 +432,10 @@ module.exports = {
     deleteTask,
     deleteListItem,
     toggleItemStatus,
-    toggleTaskImportance
+    toggleTaskImportance,
+    createNewTask,
+    createNewItem,
+    createNewGroupTask,
+    deleteGroupTask,
+    toggleGroupTaskStatus
 }

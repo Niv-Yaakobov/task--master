@@ -4,12 +4,11 @@ import useFetch from './useFetch';
 import axios from 'axios'
 
 
-const TaskList = ({ title, userId }) => {
+const TaskList = ({ title, userId,allTasks,setAllTasks }) => {
 
     const [isButtonDisabled, setButtonDisabled] = useState(false);
 
     const [tasks, setTasks] = useState([]);
-    const [allTasks, setAllTasks] = useState([]);
     const { data, isPending, error } = useFetch(userId ? `http://localhost:4001/${userId}/tasks` : null);
     
     
@@ -33,7 +32,7 @@ const TaskList = ({ title, userId }) => {
             } 
             else if (title === 'Scheduled')
              {
-                const newList = allTasks.filter((task) => task.type.includes('schedual'));
+                const newList = allTasks.filter((task) => task.type.includes('scheduled'));
                 setTasks(newList);
             } 
             else if (title === 'Important') 
@@ -54,7 +53,7 @@ const TaskList = ({ title, userId }) => {
     const toggleTaskImportance = async (task) =>{
         setButtonDisabled(true)
         // Create a copy of the tasks array
-        const updatedTasks = [...tasks];
+        const updatedTasks = [...allTasks];
 
         const taskIndex = updatedTasks.findIndex((t) => t._id === task._id);
 
@@ -76,7 +75,7 @@ const TaskList = ({ title, userId }) => {
           updatedTasks[taskIndex] = updatedTask;
 
           // Update the state with the new tasks array
-          setTasks(updatedTasks);
+          setAllTasks(updatedTasks);
        }
        await axios.patch(`http://localhost:4001/${userId}/tasks/${task._id}`);
        setButtonDisabled(false)

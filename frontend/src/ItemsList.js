@@ -3,10 +3,9 @@ import * as IMAGES from './images'
 import useFetch from './useFetch'
 import axios from 'axios'
 
-const ItemsList = ({listId, userId}) => {
+const ItemsList = ({listId, userId,list,setList}) => {
 
     const [isButtonDisabled, setButtonDisabled] = useState(false);
-    const [list, setList] = useState(null)
     const {data, isPending, error} = useFetch((userId && listId) ? `http://localhost:4001/${userId}/lists/${listId}` : null)
 
     useEffect(() => {
@@ -39,7 +38,6 @@ const ItemsList = ({listId, userId}) => {
     const handleDelete = async (id) => {
         // build a new array without the deleted item 
         const updatedListItems = list.items.filter((item) => item._id !== id );
-        console.log(updatedListItems)
         // shallow copy the original list and replacing the items array with the new one
         const newList = ({...list , items: updatedListItems})
         setList(newList)
@@ -56,7 +54,7 @@ const ItemsList = ({listId, userId}) => {
             <div className="task-container">
                 {list.items.length > 0 && list.items.map((item) =>(
                     <div className="task" id={item._id} key={item._id}>
-                        <button type="button" className="task-checkbox" disabled={isButtonDisabled}
+                        <button type="button" className="task-checkbox" style={{pointerEvents:isButtonDisabled ?'none':''}}
                          onClick={() =>{ 
                             setButtonDisabled(true)
                             toggleItemStatus(item._id)}

@@ -10,7 +10,7 @@ const itemSchema = new mongoose.Schema({
         type: String,
         required: true,
     }
-});
+}, {timestamps: true});
 
 const listSchema = new mongoose.Schema({
     title: {
@@ -22,7 +22,7 @@ const listSchema = new mongoose.Schema({
         default:[],
         required: true,
     },
-});
+}, {timestamps: true});
 
 const taskSchema = new mongoose.Schema({
     type: {
@@ -37,9 +37,8 @@ const taskSchema = new mongoose.Schema({
     date: {
         type: String,
         default:'',
-        required: true,
     },
-});
+}, {timestamps: true});
 
 const userSchema = new mongoose.Schema({
     mail:{
@@ -67,4 +66,9 @@ const userSchema = new mongoose.Schema({
     }
 }, {timestamps: true})
 
-module.exports = mongoose.model('User', userSchema)
+module.exports = {
+    Task: mongoose.model('Task', taskSchema),
+    User: mongoose.model('User', userSchema),
+    List: mongoose.model('List', listSchema),
+    Item: mongoose.model('Item', itemSchema)
+  };

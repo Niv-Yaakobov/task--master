@@ -4,7 +4,6 @@ const groupTaskSchema = new mongoose.Schema({
     status: {
         type: Boolean,
         default: false,
-        required: true,
     },
     assigned: {
         type: String,
@@ -37,4 +36,7 @@ const groupSchema = new mongoose.Schema({
     }
 }, {timestamps: true})
 
-module.exports = mongoose.model('Group', groupSchema)
+module.exports = {
+    Group: mongoose.model('Group', groupSchema),
+    GroupTask: mongoose.model('GroupTask', groupTaskSchema)
+  };

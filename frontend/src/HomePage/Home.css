@@ -167,6 +167,7 @@ li:hover{
     cursor: pointer;
     color:black;
 }
+
 .task-data{
     align-items: center;
 }
@@ -234,22 +235,31 @@ li:hover{
     padding: 10px;
     border:none;
     outline: none;
-    margin-right: 1cm;
     background-color: rgb(249, 244, 243);
     font-size: 15px;
 }
+select{
+    border: none;
+    outline: none;
+    background: rgb(249, 244, 243);
+    border-radius: 0;
+    display: block;
+    width: 170px;
+    padding: 12px 20px;
+    font-size: 14px;
+    margin-right: 10px;
+    margin-left: 0;
+    border-radius: 30px;
+  }
 .task-text{
     font-size: 21px;
 }
 .task-assigned{
     color: rgb(81, 61, 214);
 }
-
-.task-container select {
-    margin-right: 10px;
-    padding: 5px;
-    border-radius: 10px;
-    background-color: rgb(225, 224, 222);
+.task-container{
+    max-height: 450px;
+    overflow-y: auto;
 }
 
 /*--------------------------------------scroolbar styling-------------------------------*/
