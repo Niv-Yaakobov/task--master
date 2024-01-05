@@ -10,7 +10,8 @@ const AddGroupPage = () => {
     const [memberEmail, setMemberEmail] = useState('');
     const [members, setMembers] = useState([]);
     const [isLoading, setIsLoading] = useState(false)
-  
+    const userMail = localStorage.getItem('userMail')
+
     const handleAddMember = () => {
       if (memberEmail.trim() !== '' && !members.includes(memberEmail)) {
         setMembers([...members, memberEmail]);
@@ -27,10 +28,16 @@ const AddGroupPage = () => {
     const handleSubmit = async(e) => {
         e.preventDefault()
         setIsLoading(true)
+        var finalMembersArray = [...members , userMail]
+
+        if (!members.includes(userMail)){
+          finalMembersArray = [...members]
+        }
         const groupData = {
           title: groupTitle,
-          members: members,
+          members: finalMembersArray,
         };
+
         // Reset state
         setGroupTitle('');
         setMemberEmail('');
