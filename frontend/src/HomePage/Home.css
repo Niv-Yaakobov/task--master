@@ -316,6 +316,14 @@ select{
     cursor: pointer;
     border-radius:30px;
 }
+.lists-groups-show-button {
+    padding: 10px;
+    font-weight: bold;
+  }
+.lists-groups-show-button:hover {
+    background-color: rgba(240, 233, 233, 0.5);
+    cursor: pointer;
+  }
 /*--------------------------------------scroolbar styling-------------------------------*/
 /* width */
 ::-webkit-scrollbar {

@@ -6,6 +6,9 @@ import axios from 'axios'
 
 const ListAndGroupsPartMenu = ({ handleClickOnMenu, userId,lists,setLists,groups,setGroups}) => {
 
+  const [showLists , setShowLists] = useState(false)
+  const [showGroups , setShowGroups] = useState(false)
+
   const { data: listsData, isPending: listsIsPending, error: listsError } = useFetch(
     userId ? `http://localhost:4001/${userId}/lists` : null
   );
@@ -53,8 +56,11 @@ const ListAndGroupsPartMenu = ({ handleClickOnMenu, userId,lists,setLists,groups
       {listsIsPending && <div>Loading lists...</div>}
       {lists && (
         <div id="lists-groups-part-menu">
+          <div onClick={() => setShowLists(!showLists)} className='lists-groups-show-button'>
           <img src={IMAGES.listImage} className="menu-icon" alt="ion" />
           <span>LISTS:</span>
+          </div>
+          {showLists && <div>
           {lists.map((list) => (
             <li
               className='lists-groups-menu-button'
@@ -70,14 +76,19 @@ const ListAndGroupsPartMenu = ({ handleClickOnMenu, userId,lists,setLists,groups
               <span className="lists-and-groups-text">{list.title}</span>
             </li>
           ))}
+          </div>}
+
         </div>
       )}
       {groupsError && <div>{groupsError}</div>}
       {groupsIsPending && <div>Loading groups...</div>}
       {groups && (
         <div id="lists-groups-part-menu">
-          <img src={IMAGES.groupImage} className="menu-icon" alt="" />
-          <span>GROUPS:</span>
+          <div onClick={()=> setShowGroups(!showGroups)} className='lists-groups-show-button'>
+            <img src={IMAGES.groupImage} className="menu-icon" alt="" />
+            <span>GROUPS:</span>
+          </div>
+          {showGroups && <div>
           {groups.map((group) => (
             <li
               className='lists-groups-menu-button'
@@ -93,6 +104,7 @@ const ListAndGroupsPartMenu = ({ handleClickOnMenu, userId,lists,setLists,groups
               <span className="lists-and-groups-text">{group.title}</span>
             </li>
           ))}
+          </div>}
         </div>
       )}
     </div>
