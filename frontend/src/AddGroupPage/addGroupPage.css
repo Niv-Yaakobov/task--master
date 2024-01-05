@@ -1,0 +1,68 @@
+.add-member-button{
+    border:none;
+    outline: none;
+    background-color: black;
+    padding: 4px 20px;
+    color:white;
+    cursor: pointer;
+    border-radius:30px;
+}   
+
+.add-group-data-container{
+    height: 2%;
+    width: 44%;
+    position: relative;
+    left: 21%;
+    background-color: rgb(249, 244, 243);
+    border-radius: 30px;
+    margin-bottom: 30px;
+}
+.input-login-page{
+    flex: 1;
+    border: none;
+    background-color: transparent;
+    outline: none;
+}
+.create-new-group-headline{
+    margin-bottom: 50px;
+}
+.create-group-button{
+    padding: 15px;
+    border-radius: 20px;
+    background-color: orange;
+    color: white;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    left: 40%;
+    margin-bottom: 20px;
+}
+.create-group-button:hover{
+    background-color: rgb(215, 141, 4);
+}
+.members-container {
+    margin-left: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.member {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+}
+.member span {
+    font-size: 16px;
+    font-weight: bold;
+}
+.remove-member-button{
+    margin-left: 2px;
+    color: red;
+    border: none;
+}
+.remove-member-button:hover{
+font-weight: bold;
+}

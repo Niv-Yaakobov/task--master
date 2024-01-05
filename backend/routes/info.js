@@ -1,7 +1,8 @@
 const express = require('express')
 const {getUserInfo,getTasks,getListsInfo,getGroupsInfo,getSingleList,
         getSingleGroup,deleteTask,deleteListItem,toggleItemStatus,toggleTaskImportance,
-        createNewTask,createNewItem,createNewGroupTask,deleteGroupTask,toggleGroupTaskStatus} = require('../controllers/infoController')
+        createNewTask,createNewItem,createNewGroupTask,deleteGroupTask,toggleGroupTaskStatus,
+        createNewList,deleteList,deleteGroup,createNewGroup} = require('../controllers/infoController')
 const router = express.Router()
 
 
@@ -39,14 +40,10 @@ router.patch(('/:userId/lists/:listId/:itemId') , toggleItemStatus)
 router.delete(('/:userId/lists/:listId/:itemId') ,deleteListItem)
 
 //Post new list
-router.post(('/:userId/lists/') , (req,res)=>{
-    res.json({mssg: 'POST new list'})
-})
+router.post(('/:userId/lists/') , createNewList)
 
 //DELETE list
-router.delete(('/:userId/lists/:listId') , (req,res)=>{
-    res.json({mssg:'DELETE a list'})
-})
+router.delete(('/:userId/lists/:listId') , deleteList)
 
 //-------------------------------------groups--------------------------------------------------------------
 
@@ -67,13 +64,9 @@ router.patch(('/:userId/groups/:groupId/:groupTaskId') , toggleGroupTaskStatus)
 router.delete(('/:userId/groups/:groupId/:groupTaskId') , deleteGroupTask)
 
 //Post new group - to Groups collection and Users collection
-router.post(('/:userId/groups/') , (req,res)=>{
-    res.json({mssg:'POST a group'})
-})
+router.post(('/:userId/groups/') , createNewGroup)
 
 //DELETE group - from Groups collection and Users collection
-router.delete(('/:userId/groups/:groupId') , (req,res)=>{
-    res.json({mssg:'DELETE a group'})
-})
+router.delete(('/:userId/groups/:groupId') , deleteGroup)
 
 module.exports = router

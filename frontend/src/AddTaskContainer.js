@@ -27,7 +27,12 @@ const AddTaskContainer = ({kind, createNewTask,createNewItem,createNewGroupTask,
     }
     const handleSubmitGroupTask = async (e) =>{
         e.preventDefault()
-        const groupTaskInfo = {content,date,selectedMember}
+        let formattedDate = date
+        if(date !== ''){
+            var [year, month, day] = date.split('-');
+            formattedDate = `${day}/${month}/${year}`;
+        }
+        const groupTaskInfo = {content,date:formattedDate,selectedMember}
         setContent('')
         setDate('')
         setSelectedMember('')
@@ -50,7 +55,7 @@ const AddTaskContainer = ({kind, createNewTask,createNewItem,createNewGroupTask,
                     <div className="add-task-container">
                         <input type="text" placeholder="Enter a new task" id="add-task-input" 
                                 value={content} onChange={(e) =>setContent(e.target.value)}/>
-                        <input id="time-picking-input" type="date"  min="2023-11-26" max="2030-06-14" 
+                        <input id="time-picking-input" type="date"  min="2023-11-26" max="2040-06-14" 
                                 value={date} onChange={(e) =>setDate(e.target.value)}/>
                         <button type="submit" id="add-task-button">Add Task</button>
                     </div>
@@ -73,7 +78,7 @@ const AddTaskContainer = ({kind, createNewTask,createNewItem,createNewGroupTask,
                     <div className="add-task-container">    
                         <input type="text" placeholder="Enter a new task" id="add-task-input" 
                                 value={content} onChange={(e) =>setContent(e.target.value)}/>
-                        <input id="time-picking-input" type="date"  min="2023-11-26" max="2030-06-14" 
+                        <input id="time-picking-input" type="date"  min="2023-11-26" max="2040-06-14" 
                                 value={date} onChange={(e) =>setDate(e.target.value)}/>
                         <MemberSelect members={members} handleSelect={handleSelect} selectedMember={selectedMember} />
                         <button type="submit" id="add-task-button">Add Task</button>

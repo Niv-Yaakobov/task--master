@@ -42,7 +42,7 @@ body{
 
 }
 nav{
-    max-height: 80%;
+    max-height: 520px;
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -57,12 +57,41 @@ li{
     padding: 0.3cm;
     border-radius: 10px;
     transition-duration: 0.4s;
-
 }
 li:hover{
     background-color: rgba(240, 233, 233, .5);
     cursor: pointer;
 }
+.delete-list-group {
+    width: 0.5cm;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 5px;
+    visibility: hidden;
+  }
+  .lists-groups-menu-button:hover .delete-list-group {
+    visibility: visible;
+  }
+  .lists-and-groups-text {
+    font-size: 23px;
+    margin-left: 5px;
+    text-overflow: ellipsis; /* Display ellipsis (...) for overflowed text */
+    overflow: hidden; /* Hide overflowing text */
+  }
+.lists-groups-menu-button {
+    display: flex;
+    align-items: center;
+    font-size: large;
+    list-style-type: none;
+    padding: 0.3cm;
+    border-radius: 10px;
+    transition-duration: 0.4s;
+    margin-right: 20px;
+  }
+  .lists-groups-menu-button:hover {
+    background-color: rgba(240, 233, 233, 0.5);
+    cursor: pointer;
+  }
 .list-icon{
     color: rgb(67, 67, 250);
     margin-left: 15px;
@@ -75,10 +104,7 @@ li:hover{
     margin-top: 15px;
 
 }
-.lists-and-groups-text{
-    font-size: 23px;
-    margin-left: 30px;
-}
+
 #main-part-menu{
     margin-bottom: 1.5cm;
     margin-top: .5cm;
@@ -261,7 +287,35 @@ select{
     max-height: 450px;
     overflow-y: auto;
 }
-
+.add-list-container{
+    position: absolute;
+    top: -40px;
+    width: 170px;
+    display: flex;
+    align-items: center;
+    background-color: rgb(249, 244, 243);
+    border-radius: 30px;
+    padding-left: 20px;
+    margin-bottom: 25px;
+    margin-left: 15px;
+}
+.add-list-input{
+    flex: 1;
+    width: 100px;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    padding: 10px;
+}
+.add-list-button{
+    border:none;
+    outline: none;
+    background-color: orange;
+    padding: 10px;
+    color:white;
+    cursor: pointer;
+    border-radius:30px;
+}
 /*--------------------------------------scroolbar styling-------------------------------*/
 /* width */
 ::-webkit-scrollbar {

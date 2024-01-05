@@ -3,7 +3,7 @@ import Home from './HomePage/Home';
 import Welcome from './WelcomePage/Welcome'
 import LoginPage from './LoginPage/LoginPage';
 import SignUpPage from './SignUpPage/SignUpPage';
-
+import AddGroupPage from "./AddGroupPage/AddGroupPage.js";
 
 const App = () => {
 
@@ -31,6 +31,9 @@ const App = () => {
             </Route>
             <Route path='/Home'>
                 <Home/>
+            </Route>
+            <Route path='/AddGroup'>
+                <AddGroupPage/>
             </Route>
           </Switch>
       </div>

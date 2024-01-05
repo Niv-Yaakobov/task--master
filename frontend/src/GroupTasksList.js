@@ -68,12 +68,14 @@ const GroupTasksList = ({groupId,userId,group,setGroup}) => {
                          onClick={() =>{ 
                             setButtonDisabled(true)
                             toggleTaskStatus(task._id)}
-                            }>{renderIcon(task.status)}</button>                    
+                            }>{renderIcon(task.status)}
+                    </button>     
+                                           
                         <div className="task-data">
-                        <div className="task-text">{task.content}</div>
-                        <div className="date-text task-assigned"> {task.assigned}</div>
-                        <div className="date-text"> {task.date}</div>
-                    </div>
+                            <div className="task-text">{task.content}</div>
+                            <div className="date-text task-assigned"> {task.assigned}</div>
+                            <div className="date-text"> {task.date}</div>
+                        </div>
                     <img src= {IMAGES.garbageImage} className="star-icon" alt="icon"
                         onClick={() => handleDelete(task._id)}/>
                 </div>

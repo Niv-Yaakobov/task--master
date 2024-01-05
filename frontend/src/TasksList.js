@@ -11,7 +11,7 @@ const TaskList = ({ title, userId,allTasks,setAllTasks }) => {
     const [tasks, setTasks] = useState([]);
     const { data, isPending, error } = useFetch(userId ? `http://localhost:4001/${userId}/tasks` : null);
     
-    
+
     useEffect(() => {
       if (data) {
         setAllTasks(data);
@@ -23,12 +23,14 @@ const TaskList = ({ title, userId,allTasks,setAllTasks }) => {
           setTasks([])
         if (allTasks.length > 0) {
             if (title === 'My Day') {
-            const date = new Date();
-            const year = date.getFullYear();
-            const month = date.getMonth() + 1;
-            const day = date.getDate();
-            const newList = allTasks.filter((task) => task.date === day + '/' + month + '/' + year);
-            setTasks(newList);
+              const date = new Date();
+              const year = date.getFullYear();
+              // Add 0 if the month or the day are one digit
+              const month = ("0" + (date.getMonth() + 1)).slice(-2);
+              let day = ("0" + date.getDate()).slice(-2);
+              
+              const newList = allTasks.filter((task) => task.date === day + '/' + month + '/' + year);
+              setTasks(newList);
             } 
             else if (title === 'Scheduled')
              {

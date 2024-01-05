@@ -300,6 +300,54 @@ const deleteListItem = async (req, res) => {
       res.status(400).json({ error: error.message });
     }
   };
+
+//POST new list 
+const createNewList = async (req,res) =>{
+  const userId = req.params['userId']
+  const {title} = req.body
+
+  try {
+      // Create a new List using the List model
+      const newList = new List({ title});
+      // Update the user document using findOneAndUpdate
+      const updatedUser = await User.findOneAndUpdate(
+        { _id: userId },
+        { $push: { lists: newList } },
+        { new: true }
+      );
+  
+      if (updatedUser) {
+        res.status(201).json({ message: 'Task created successfully', list:newList});
+      } else {
+        res.status(404).json({ message: 'User not found' });
+      }
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
+
+// DELETE list-----------------------------------------------------
+const deleteList = async (req, res) => {
+  const { userId, listId } = req.params;
+  try {
+      //convert the listId (string) to an objectId type
+      const listObjectId = new ObjectId(listId);
+    // Find the user by userId and update the lists array
+    const updatedUser = await User.findOneAndUpdate(
+      { _id: userId },
+      { $pull: { lists: { _id: listObjectId } } },
+      { new: true } 
+    );
+
+    if (updatedUser) {
+      res.status(200).json({ messg: 'List deleted successfully' });
+    } else {
+      res.status(404).json({ messg: 'The list or user does not exist' });
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
 //-------------------------------------groups--------------------------------------------------------------
 
 
@@ -420,6 +468,70 @@ const deleteGroupTask = async (req, res) => {
       res.status(400).json({ error: error.message });
     }
   };
+// DELETE Group-----------------------------------------------------
+const deleteGroup = async (req, res) => {
+  const { userId, groupId } = req.params;
+  try {
+
+    const group = await Group.findOneAndDelete({_id: groupId}, { projection: { members: 1 } })
+    console.log(group.members)
+    // delete the group from the User colletion - from each user in the members array
+    group.members.map(async (member) => {
+      const id = member._id
+      await User.findOneAndUpdate(
+        {_id: id},
+        { $pull: { groups: { _id: new ObjectId(groupId) } } },
+      )
+    })
+    
+    if (group) {
+      res.status(200).json({ messg: 'Group deleted successfully' });
+    } else {
+      res.status(404).json({ messg: 'The group or user does not exist' });
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+//POST new group
+const createNewGroup = async (req,res) =>{
+  const {title,members} = req.body
+  try {
+      // Find the exisiting users with the given email addresses
+      const existingUsers = await User.find({ mail: { $in: members } });
+      const newMembers =  existingUsers.map(({ _id, mail }) => ({ _id, mail }));
+
+      // Create a new group using the Group model
+      const newGroup = new Group({title, members: newMembers });
+      await newGroup.save()
+
+      // Add the group to the user's groups array
+      for (const user of existingUsers) {
+        // Update the user document using findOneAndUpdate
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: user._id },
+          { $push: { groups: { title:title, _id: newGroup._id } } },
+          { new: true } // Return the updated document
+        ); 
+
+        // Mark the array as modified
+        updatedUser.markModified('groups');
+        await updatedUser.save();
+      } 
+        
+
+      if (newGroup) {
+        res.status(201).json({ message: 'Group created successfully', group:newGroup});
+      } else {
+        res.status(404).json({ message: 'User not found' });
+      }
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
+
+
 module.exports = {
     createUser,
     loginUser,
@@ -437,5 +549,9 @@ module.exports = {
     createNewItem,
     createNewGroupTask,
     deleteGroupTask,
-    toggleGroupTaskStatus
+    toggleGroupTaskStatus,
+    createNewList,
+    deleteList,
+    deleteGroup,
+    createNewGroup
 }

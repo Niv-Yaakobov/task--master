@@ -1,11 +1,10 @@
-import { useState,useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import * as IMAGES from  './images.js'
 import useFetch from './useFetch.js';
+import axios from 'axios'
 
 
-const ListAndGroupsPartMenu = ({ handleClickOnMenu, userId }) => {
-  const [lists, setLists] = useState(null);
-  const [groups, setGroups] = useState(null);
+const ListAndGroupsPartMenu = ({ handleClickOnMenu, userId,lists,setLists,groups,setGroups}) => {
 
   const { data: listsData, isPending: listsIsPending, error: listsError } = useFetch(
     userId ? `http://localhost:4001/${userId}/lists` : null
@@ -13,6 +12,8 @@ const ListAndGroupsPartMenu = ({ handleClickOnMenu, userId }) => {
   const { data: groupsData, isPending: groupsIsPending, error: groupsError } = useFetch(
     userId ? `http://localhost:4001/${userId}/groups` : null
   );
+
+  const [isDeletingList , setIsDeletingList] = useState(false)
 
   // Render the lists data after the fetch is over
   useEffect(() => {
@@ -28,6 +29,24 @@ const ListAndGroupsPartMenu = ({ handleClickOnMenu, userId }) => {
     }
   }, [groupsData]);
 
+  const handleDeleteList = async (event, id) => {
+    event.stopPropagation(); // Stop event propagation to the parent li
+    //delete it from the local lists array
+    const newListsList = lists.filter((list) => list._id !== id);
+    setLists(newListsList);
+    //delete request to the server
+    await axios.delete(`http://localhost:4001/${userId}/lists/${id}`);
+  };
+
+  const handleDeleteGroup = async (event, id) => {
+    event.stopPropagation(); // Stop event propagation to the parent li
+    //delete it from the local lists array
+    const newGroupsList = groups.filter((group) => group._id !== id);
+    setGroups(newGroupsList);
+    //delete request to the server
+    await axios.delete(`http://localhost:4001/${userId}/groups/${id}`);
+  };
+
   return (
     <div className='second-part-menu'>
       {listsError && <div>{listsError}</div>}
@@ -38,12 +57,16 @@ const ListAndGroupsPartMenu = ({ handleClickOnMenu, userId }) => {
           <span>LISTS:</span>
           {lists.map((list) => (
             <li
+              className='lists-groups-menu-button'
               id={list._id}
               key={list._id}
               onClick={() => {
                 handleClickOnMenu({ kind: 'list', info: list });
               }}
             >
+              <img src= {IMAGES.garbageImage} className="delete-list-group" alt="delete"
+                        onClick={(event) => handleDeleteList(event, list._id)}/>
+
               <span className="lists-and-groups-text">{list.title}</span>
             </li>
           ))}
@@ -57,13 +80,17 @@ const ListAndGroupsPartMenu = ({ handleClickOnMenu, userId }) => {
           <span>GROUPS:</span>
           {groups.map((group) => (
             <li
+              className='lists-groups-menu-button'
               id={group._id}
               key={group._id}
               onClick={() => {
                 handleClickOnMenu({ kind: 'group', info: group });
               }}
             >
-              <span className="lists-and-groups-text">-{group.title}</span>
+              <img src= {IMAGES.garbageImage} className="delete-list-group" alt="delete"
+                        onClick={(event) => handleDeleteGroup(event, group._id)}/>
+
+              <span className="lists-and-groups-text">{group.title}</span>
             </li>
           ))}
         </div>
