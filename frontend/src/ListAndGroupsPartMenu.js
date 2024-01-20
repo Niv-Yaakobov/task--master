@@ -59,6 +59,7 @@ const ListAndGroupsPartMenu = ({ handleClickOnMenu, userId,lists,setLists,groups
           <div onClick={() => setShowLists(!showLists)} className='lists-groups-show-button'>
           <img src={IMAGES.listImage} className="menu-icon" alt="ion" />
           <span>LISTS:</span>
+          <span><img src={showLists ? IMAGES.upArrowImage : IMAGES.downArrowImage} className="menu-icon arrow-icon" alt="ion" /></span>
           </div>
           {showLists && <div>
           {lists.map((list) => (
@@ -87,6 +88,7 @@ const ListAndGroupsPartMenu = ({ handleClickOnMenu, userId,lists,setLists,groups
           <div onClick={()=> setShowGroups(!showGroups)} className='lists-groups-show-button'>
             <img src={IMAGES.groupImage} className="menu-icon" alt="" />
             <span>GROUPS:</span>
+            <span><img src={showGroups ? IMAGES.upArrowImage : IMAGES.downArrowImage} className="menu-icon arrow-icon" alt="ion" /></span>
           </div>
           {showGroups && <div>
           {groups.map((group) => (

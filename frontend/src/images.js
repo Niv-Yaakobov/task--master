@@ -11,5 +11,7 @@ export const starImage = require('./images/star.png');
 export const welcomeImage = require('./images/welcomeImage.png');
 export const garbageImage = require('./images/garbage.png');
 export const logoutImage = require('./images/logout.png');
+export const upArrowImage = require('./images/up-arrow.png');
+export const downArrowImage = require('./images/down-arrow.png');
 
 

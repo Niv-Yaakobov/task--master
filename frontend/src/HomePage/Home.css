@@ -325,9 +325,15 @@ select{
     background-color: rgba(240, 233, 233, 0.5);
     cursor: pointer;
   }
+
+.arrow-icon{
+    position: relative;
+    float: right;
+}
 /*--------------------------------------scroolbar styling-------------------------------*/
 /* width */
 ::-webkit-scrollbar {
+    display: none;
     width: 10px;
   }
   

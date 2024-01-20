@@ -28,10 +28,10 @@ const AddGroupPage = () => {
     const handleSubmit = async(e) => {
         e.preventDefault()
         setIsLoading(true)
-        var finalMembersArray = [...members , userMail]
+        var finalMembersArray = [...members]
 
         if (!members.includes(userMail)){
-          finalMembersArray = [...members]
+          finalMembersArray.push(userMail)
         }
         const groupData = {
           title: groupTitle,
