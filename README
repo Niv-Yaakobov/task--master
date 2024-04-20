@@ -1,0 +1,7 @@
+to run the frontend part:
+1. go to the terminal and go to the frontend directory.
+2. write in the terminal "npm start"
+
+to run the backend part:
+1. go to the terminal and go to the frontend directory.
+2. write in the terminal "node server.js"
