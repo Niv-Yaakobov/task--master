@@ -1,10 +1,10 @@
-import TaskPartMenu from './TaskPartMenu.js';
-import ListAndGroupsPartMenu from './ListAndGroupsPartMenu.js'
-import AddListButton from './AddListsAndGroups.js'
+import TaskPartMenu from './components/TaskPartMenu.js';
+import ListAndGroupsPartMenu from './components/ListAndGroupsPartMenu.js'
+import AddListButton from './components/AddListsAndGroups.js'
 import { useState } from 'react';
 
 
-const MenuContainer = ({handleClickOnMenu ,userId ,userMail}) => {
+const MenuContainer = ({handleClickOnMenu ,userId ,userMail, data}) => {
 
     const [lists, setLists] = useState(null);
     const [groups, setGroups] = useState(null);
@@ -17,7 +17,7 @@ const MenuContainer = ({handleClickOnMenu ,userId ,userMail}) => {
                   <TaskPartMenu handleClickOnMenu={handleClickOnMenu}/>
                   <ListAndGroupsPartMenu handleClickOnMenu={handleClickOnMenu} 
                         userId = {userId} lists={lists} setLists={setLists}
-                        groups={groups} setGroups={setGroups}/>
+                        groups={groups} setGroups={setGroups} data={data}/>
                 </ul>
             </nav>
             <div id="add-groups-and-lists-button-container">

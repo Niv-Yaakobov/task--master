@@ -10,10 +10,12 @@ const AddTaskContainer = ({kind, createNewTask,createNewItem,createNewGroupTask,
     const handleSubmitTask = async (e) =>{
         e.preventDefault()
         let formattedDate = date
+        //changin the date format (from american to european)
         if(date !== ''){
             var [year, month, day] = date.split('-');
             formattedDate = `${day}/${month}/${year}`;
         }
+
         const taskInfo = {content , date:formattedDate}
         setContent('')
         setDate('')
@@ -28,10 +30,12 @@ const AddTaskContainer = ({kind, createNewTask,createNewItem,createNewGroupTask,
     const handleSubmitGroupTask = async (e) =>{
         e.preventDefault()
         let formattedDate = date
+        //changin the date format (from american to european)
         if(date !== ''){
             var [year, month, day] = date.split('-');
             formattedDate = `${day}/${month}/${year}`;
         }
+        
         const groupTaskInfo = {content,date:formattedDate,selectedMember}
         setContent('')
         setDate('')

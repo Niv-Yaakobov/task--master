@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import * as IMAGES from './images';
-import useFetch from './useFetch';
+import * as IMAGES from '../../../../images';
+import useFetch from '../../../../useFetch';
 import axios from 'axios'
 
 
@@ -18,6 +18,11 @@ const TaskList = ({ title, userId,allTasks,setAllTasks }) => {
       }
     }, [data]);
     
+    useEffect(() => {
+      renderList();
+    }, [title, allTasks]);
+
+
     const renderList = () => {
         if(allTasks.length === 0)
           setTasks([])
@@ -35,7 +40,7 @@ const TaskList = ({ title, userId,allTasks,setAllTasks }) => {
             else if (title === 'Scheduled')
              {
                 const newList = allTasks.filter((task) => task.type.includes('scheduled'));
-                setTasks(newList);
+                setTasks(sortByDate(newList));
             } 
             else if (title === 'Important') 
             {
@@ -47,10 +52,17 @@ const TaskList = ({ title, userId,allTasks,setAllTasks }) => {
             }
         }
     }
+    function sortByDate(tasks) {
+      return tasks.sort((task1, task2) => {
+          // Convert date strings to Date objects
+          const date1 = new Date(task1.date.split('/').reverse().join('/'));
+          const date2 = new Date(task2.date.split('/').reverse().join('/'));
+          
+          // Compare the dates
+          return date1 - date2;
+      });
+  }
 
-    useEffect(() => {
-        renderList();
-      }, [title, allTasks]);
 
     const toggleTaskImportance = async (task) =>{
         setButtonDisabled(true)
@@ -98,15 +110,14 @@ const TaskList = ({ title, userId,allTasks,setAllTasks }) => {
 
   const handleComplete = async (id) => {
     //remove from the tasks list
-    const newAlLTasksList = allTasks.filter((task) => task._id !== id)
-    setAllTasks(newAlLTasksList)
+    const newAllTasksList = allTasks.filter((task) => task._id !== id)
+    setAllTasks(newAllTasksList)
     await axios.delete(`http://localhost:4001/${userId}/tasks/${id}`);
   }
 
   return (
     <div>
       {error && <div>{error}</div>}
-      {isPending && <div> Loading... </div>}
       {allTasks && (
         <div className="task-container">
           {tasks.length > 0 && tasks.map((task) => (

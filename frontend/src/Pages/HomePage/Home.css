@@ -199,7 +199,19 @@ li:hover{
     cursor: pointer;
     color:black;
 }
-
+.group-task-checkbox{
+    margin-right: .7cm;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;  
+    border-radius: 50%;
+}
+.group-task-checkbox:hover{
+    color: black !important;
+    cursor:pointer; 
+}
 .task-data{
     align-items: center;
 }
@@ -289,6 +301,7 @@ select{
 }
 .task-assigned{
     color: rgb(81, 61, 214);
+    font-weight: bold;
 }
 .task-container{
     max-height: 450px;

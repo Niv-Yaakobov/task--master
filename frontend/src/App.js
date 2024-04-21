@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Home from './HomePage/Home';
-import Welcome from './WelcomePage/Welcome'
-import LoginPage from './LoginPage/LoginPage';
-import SignUpPage from './SignUpPage/SignUpPage';
-import AddGroupPage from "./AddGroupPage/AddGroupPage.js";
+import Home from './Pages/HomePage/Home.js';
+import Welcome from './Pages/WelcomePage/Welcome.js'
+import LoginPage from './Pages/LoginPage/LoginPage.js';
+import SignUpPage from './Pages/SignUpPage/SignUpPage';
+import AddGroupPage from "./Pages/AddGroupPage/AddGroupPage.js";
 
 const App = () => {
 

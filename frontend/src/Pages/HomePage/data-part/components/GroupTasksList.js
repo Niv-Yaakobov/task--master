@@ -1,6 +1,6 @@
-import useFetch from "./useFetch";
+import useFetch from "../../../../useFetch";
 import { useState, useEffect } from 'react'
-import * as IMAGES from './images'
+import * as IMAGES from '../../../../images'
 import axios from 'axios'
 
 
@@ -58,13 +58,12 @@ const GroupTasksList = ({groupId,userId,group,setGroup}) => {
     return (  
         <div>
             { error && <div>{ error }</div> }
-            { isPending && <div> Loading... </div> }
             {group &&
             <div className="task-container">
                 {group.tasks.map((task) =>(
                 <div className="task" id={task._id} key={task._id} style={{backgroundColor: renderTaskColor(task.status)}}>
-                    <button type="button" className="task-checkbox" style={{pointerEvents:isButtonDisabled ?'none':'', 
-                            backgroundColor: renderTaskColor(task.status),hover:{color:"black"}}}
+                    <button type="button" className="group-task-checkbox" style={{pointerEvents:isButtonDisabled ?'none':'', 
+                            backgroundColor: renderTaskColor(task.status) ,color: renderTaskColor(task.status)}}
                          onClick={() =>{ 
                             setButtonDisabled(true)
                             toggleTaskStatus(task._id)}
@@ -73,7 +72,7 @@ const GroupTasksList = ({groupId,userId,group,setGroup}) => {
                                            
                         <div className="task-data">
                             <div className="task-text">{task.content}</div>
-                            <div className="date-text task-assigned"> {task.assigned}</div>
+                            <div className="date-text task-assigned">{task.assigned}</div>
                             <div className="date-text"> {task.date}</div>
                         </div>
                     <img src= {IMAGES.garbageImage} className="star-icon" alt="icon"

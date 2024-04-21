@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import * as IMAGES from './images'
-import useFetch from './useFetch'
+import * as IMAGES from '../../../../images'
+import useFetch from '../../../../useFetch'
 import axios from 'axios'
 
 const ItemsList = ({listId, userId,list,setList}) => {
@@ -49,7 +49,6 @@ const ItemsList = ({listId, userId,list,setList}) => {
     return ( 
         <div>
             { error && <div>{ error }</div> }
-            { isPending && <div> Loading... </div> }
             {list && 
             <div className="task-container">
                 {list.items.length > 0 && list.items.map((item) =>(

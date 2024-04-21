@@ -1,4 +1,4 @@
-import * as IMAGES from  './images.js'
+import * as IMAGES from  '../../../../images.js'
 
 const TaskPartMenu = ({handleClickOnMenu}) => {
 

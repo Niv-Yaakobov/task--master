@@ -1,8 +1,8 @@
-import TasksList from './TasksList'
-import ItemsList from './ItemsList'
-import GroupTasksList from './GroupTasksList'
-import AddTaskContainer from './AddTaskContainer'
-import {logoutImage} from './images'
+import TasksList from './components/TasksList'
+import ItemsList from './components/ItemsList'
+import GroupTasksList from './components/GroupTasksList'
+import AddTaskContainer from './components/AddTaskContainer'
+import {logoutImage} from '../../../images'
 import { useHistory } from 'react-router-dom';
 import { useState } from 'react'
 import axios from 'axios'
@@ -14,7 +14,7 @@ const TaskSideContainer = ({data, userId}) => {
     const [allTasks, setAllTasks] = useState([]);
     const [list, setList] = useState(null)
     const [group, setGroup] = useState(null)
-    const members = data.kind === 'group' && group? group.members: null
+    const members = ( (data.kind === 'group' && group) ? group.members: null)
 
     const renderListKind = () =>{
         if (data.kind === 'task')

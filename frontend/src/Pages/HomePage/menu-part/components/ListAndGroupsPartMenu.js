@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import * as IMAGES from  './images.js'
-import useFetch from './useFetch.js';
+import * as IMAGES from  '../../../../images.js'
+import useFetch from '../../../../useFetch.js';
 import axios from 'axios'
 
 
-const ListAndGroupsPartMenu = ({ handleClickOnMenu, userId,lists,setLists,groups,setGroups}) => {
+const ListAndGroupsPartMenu = ({ handleClickOnMenu, userId,lists,setLists,groups,setGroups, data}) => {
 
   const [showLists , setShowLists] = useState(false)
   const [showGroups , setShowGroups] = useState(false)
@@ -16,7 +16,6 @@ const ListAndGroupsPartMenu = ({ handleClickOnMenu, userId,lists,setLists,groups
     userId ? `http://localhost:4001/${userId}/groups` : null
   );
 
-  const [isDeletingList , setIsDeletingList] = useState(false)
 
   // Render the lists data after the fetch is over
   useEffect(() => {
@@ -37,6 +36,10 @@ const ListAndGroupsPartMenu = ({ handleClickOnMenu, userId,lists,setLists,groups
     //delete it from the local lists array
     const newListsList = lists.filter((list) => list._id !== id);
     setLists(newListsList);
+    // check if the deleted list is being display, if yes change the display list the the first group 
+    if(data.info._id === id){
+      handleClickOnMenu({ kind: 'list', info: lists[0] })
+    }
     //delete request to the server
     await axios.delete(`http://localhost:4001/${userId}/lists/${id}`);
   };
@@ -46,6 +49,10 @@ const ListAndGroupsPartMenu = ({ handleClickOnMenu, userId,lists,setLists,groups
     //delete it from the local lists array
     const newGroupsList = groups.filter((group) => group._id !== id);
     setGroups(newGroupsList);
+    // check if the deleted group is being display, if yes change the display group the the first group 
+    if(data.info._id === id){
+      handleClickOnMenu({ kind: 'group', info: groups[0] })
+    }
     //delete request to the server
     await axios.delete(`http://localhost:4001/${userId}/groups/${id}`);
   };
@@ -53,15 +60,14 @@ const ListAndGroupsPartMenu = ({ handleClickOnMenu, userId,lists,setLists,groups
   return (
     <div className='second-part-menu'>
       {listsError && <div>{listsError}</div>}
-      {listsIsPending && <div>Loading lists...</div>}
-      {lists && (
+      
         <div id="lists-groups-part-menu">
           <div onClick={() => setShowLists(!showLists)} className='lists-groups-show-button'>
-          <img src={IMAGES.listImage} className="menu-icon" alt="ion" />
-          <span>LISTS:</span>
-          <span><img src={showLists ? IMAGES.upArrowImage : IMAGES.downArrowImage} className="menu-icon arrow-icon" alt="ion" /></span>
+            <img src={IMAGES.listImage} className="menu-icon" alt="ion" />
+            <span>LISTS:</span>
+            <span><img src={showLists ? IMAGES.upArrowImage : IMAGES.downArrowImage} className="menu-icon arrow-icon" alt="ion" /></span>
           </div>
-          {showLists && <div>
+          {lists && showLists && <div>
           {lists.map((list) => (
             <li
               className='lists-groups-menu-button'
@@ -80,17 +86,16 @@ const ListAndGroupsPartMenu = ({ handleClickOnMenu, userId,lists,setLists,groups
           </div>}
 
         </div>
-      )}
+        
       {groupsError && <div>{groupsError}</div>}
-      {groupsIsPending && <div>Loading groups...</div>}
-      {groups && (
+      
         <div id="lists-groups-part-menu">
           <div onClick={()=> setShowGroups(!showGroups)} className='lists-groups-show-button'>
             <img src={IMAGES.groupImage} className="menu-icon" alt="" />
             <span>GROUPS:</span>
             <span><img src={showGroups ? IMAGES.upArrowImage : IMAGES.downArrowImage} className="menu-icon arrow-icon" alt="ion" /></span>
           </div>
-          {showGroups && <div>
+          {groups && showGroups && <div>
           {groups.map((group) => (
             <li
               className='lists-groups-menu-button'
@@ -108,7 +113,6 @@ const ListAndGroupsPartMenu = ({ handleClickOnMenu, userId,lists,setLists,groups
           ))}
           </div>}
         </div>
-      )}
     </div>
   );
 };

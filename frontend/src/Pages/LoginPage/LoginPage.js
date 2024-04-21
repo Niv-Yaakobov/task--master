@@ -1,5 +1,5 @@
 import './LoginPage.css'
-import * as IMAGES from "../images"
+import * as IMAGES from "../../images"
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { useState } from 'react';
 import axios from 'axios'

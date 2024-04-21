@@ -1,6 +1,6 @@
 import './Home.css'
-import MenuContainer from '../MenuContainer.js';
-import TaskSideContainer from '../TaskSideContainer.js';
+import MenuContainer from './menu-part/MenuContainer.js';
+import TaskSideContainer from './data-part/TaskSideContainer.js';
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
@@ -36,7 +36,7 @@ function Home() {
 
   return (
     <div className="Home-container" >
-      <MenuContainer handleClickOnMenu ={handleClickOnMenu} userId = {userId} userMail ={userMail}/>
+      <MenuContainer handleClickOnMenu ={handleClickOnMenu} userId = {userId} userMail ={userMail} data = {data}/>
       <TaskSideContainer data = {data} userId={userId}/>
     </div>
   );
