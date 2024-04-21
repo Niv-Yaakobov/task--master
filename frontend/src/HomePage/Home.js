@@ -9,7 +9,8 @@ function Home() {
 
   //initial data for the home page
   const [data, setData] = useState({kind:'task', info:{title:'My Day'}})
-  //move the data of the clicked item in the menu to the tasks side
+  
+  //show the data of the clicked item in the menu, to the tasks side.
   const handleClickOnMenu = (data) => {
    setData(data);
   }
