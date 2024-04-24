@@ -38,7 +38,7 @@ const ListAndGroupsPartMenu = ({ handleClickOnMenu, userId,lists,setLists,groups
     setLists(newListsList);
     // check if the deleted list is being display, if yes change the display list the the first group 
     if(data.info._id === id){
-      handleClickOnMenu({ kind: 'list', info: lists[0] })
+      handleClickOnMenu({kind:'task', info:{title:'My Day'}})
     }
     //delete request to the server
     await axios.delete(`http://${process.env.REACT_APP_BACKEND_IP}:4001/${userId}/lists/${id}`);
@@ -51,7 +51,7 @@ const ListAndGroupsPartMenu = ({ handleClickOnMenu, userId,lists,setLists,groups
     setGroups(newGroupsList);
     // check if the deleted group is being display, if yes change the display group the the first group 
     if(data.info._id === id){
-      handleClickOnMenu({ kind: 'group', info: groups[0] })
+      handleClickOnMenu({kind:'task', info:{title:'My Day'}})
     }
     //delete request to the server
     await axios.delete(`http://${process.env.REACT_APP_BACKEND_IP}:4001/${userId}/groups/${id}`);
