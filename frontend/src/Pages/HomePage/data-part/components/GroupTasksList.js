@@ -9,7 +9,7 @@ const GroupTasksList = ({groupId,userId,group,setGroup}) => {
     const [isButtonDisabled, setButtonDisabled] = useState(false);
 
     //fetching the data 
-    const {data, isPending, error} = useFetch((userId && groupId) ? `http://localhost:4001/${userId}/groups/${groupId}` : null)
+    const {data, isPending, error} = useFetch((userId && groupId) ? `http://${process.env.REACT_APP_BACKEND_IP}:4001/${userId}/groups/${groupId}` : null)
 
     useEffect(() => {
         if (data) {
@@ -41,7 +41,7 @@ const GroupTasksList = ({groupId,userId,group,setGroup}) => {
         // shallow copy group and update the tasks array 
         const newGroup = ({...group , task:updatedGroupTasks})
         setGroup(newGroup);
-        await axios.patch(`http://localhost:4001/${userId}/groups/${groupId}/${id}`);
+        await axios.patch(`http://${process.env.REACT_APP_BACKEND_IP}:4001/${userId}/groups/${groupId}/${id}`);
         setButtonDisabled(false)
      };
 
@@ -52,7 +52,7 @@ const GroupTasksList = ({groupId,userId,group,setGroup}) => {
         const newGroup = ({...group , tasks: updatedGroupTasks})
         setGroup(newGroup)
         //delete request to the server
-        await axios.delete(`http://localhost:4001/${userId}/groups/${group._id}/${id}`);
+        await axios.delete(`http://${process.env.REACT_APP_BACKEND_IP}:4001/${userId}/groups/${group._id}/${id}`);
     }
 
     return (  

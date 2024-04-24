@@ -13,7 +13,7 @@ const AddGroupPage = () => {
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const errorMessages = ["User already chosen to the group", "Group Title is empty"];
   const [errorIndex, setErrorIndex] = useState(0);
-
+  
   const groupTitleInputRef = useRef(null); // Define groupTitleInputRef
   const memberEmailInputRef = useRef(null); // Define memberEmailInputRef
 
@@ -54,7 +54,7 @@ const AddGroupPage = () => {
       setMembers([]);
       const userId = '0'; // don't need the userId
       try {
-        await axios.post(`http://localhost:4001/${userId}/groups`, groupData);
+        await axios.post(`http://${process.env.REACT_APP_BACKEND_IP}:4001/${userId}/groups`, groupData);
         setIsLoading(false);
         history.push('/home');
       } catch (error) {

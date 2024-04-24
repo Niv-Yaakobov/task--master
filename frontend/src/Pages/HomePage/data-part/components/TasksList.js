@@ -9,7 +9,7 @@ const TaskList = ({ title, userId,allTasks,setAllTasks }) => {
     const [isButtonDisabled, setButtonDisabled] = useState(false);
 
     const [tasks, setTasks] = useState([]);
-    const { data, isPending, error } = useFetch(userId ? `http://localhost:4001/${userId}/tasks` : null);
+    const { data, isPending, error } = useFetch(userId ? `http://${process.env.REACT_APP_BACKEND_IP}:4001/${userId}/tasks` : null);
     
 
     useEffect(() => {
@@ -91,7 +91,7 @@ const TaskList = ({ title, userId,allTasks,setAllTasks }) => {
           // Update the state with the new tasks array
           setAllTasks(updatedTasks);
        }
-       await axios.patch(`http://localhost:4001/${userId}/tasks/${task._id}`);
+       await axios.patch(`http://${process.env.REACT_APP_BACKEND_IP}:4001/${userId}/tasks/${task._id}`);
        setButtonDisabled(false)
     }
 
@@ -112,7 +112,7 @@ const TaskList = ({ title, userId,allTasks,setAllTasks }) => {
     //remove from the tasks list
     const newAllTasksList = allTasks.filter((task) => task._id !== id)
     setAllTasks(newAllTasksList)
-    await axios.delete(`http://localhost:4001/${userId}/tasks/${id}`);
+    await axios.delete(`http://${process.env.REACT_APP_BACKEND_IP}:4001/${userId}/tasks/${id}`);
   }
 
   return (
