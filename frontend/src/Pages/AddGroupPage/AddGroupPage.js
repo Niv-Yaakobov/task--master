@@ -17,6 +17,10 @@ const AddGroupPage = () => {
   const groupTitleInputRef = useRef(null); // Define groupTitleInputRef
   const memberEmailInputRef = useRef(null); // Define memberEmailInputRef
 
+  if(!userMail){
+    history.push('/LoginPage');
+  }
+  
   const handleAddMember = () => {
     if (memberEmail.trim() !== '' && !members.includes(memberEmail)) {
       setMembers([...members, memberEmail]);

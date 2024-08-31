@@ -30,7 +30,7 @@ const LoginPage = ({handleUserLogin}) => {
             setIncorrectInfo(true)
         }
         else{
-            // Redirect to the home page upon successful signup
+            // Redirect to the home page upon successful login
             handleUserLogin(userId, mail)
             history.push('/home');
         }

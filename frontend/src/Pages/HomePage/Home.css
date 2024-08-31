@@ -1,5 +1,6 @@
 body{
     background-color: rgba(69, 69, 87, 0.438);
+    min-width: 1230px;
 }
 .Home-container{
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -54,9 +55,11 @@ ul{
 li{
     font-size: large;
     list-style-type: none;
-    padding: 0.3cm;
-    border-radius: 10px;
+    padding: 0.2cm;
+    padding-bottom: 0.4cm;
+    border-radius: 40px;
     transition-duration: 0.4s;
+    margin-bottom: 4px;
 }
 li:hover{
     background-color: rgba(240, 233, 233, .5);
@@ -77,6 +80,7 @@ li:hover{
     margin-left: 5px;
     text-overflow: ellipsis; /* Display ellipsis (...) for overflowed text */
     overflow: hidden; /* Hide overflowing text */
+
   }
 .lists-groups-menu-button {
     display: flex;
@@ -84,9 +88,9 @@ li:hover{
     font-size: large;
     list-style-type: none;
     padding: 0.3cm;
-    border-radius: 10px;
+    border-radius: 40px;
     transition-duration: 0.4s;
-    margin-right: 20px;
+    padding-right: 20px;    
   }
   .lists-groups-menu-button:hover {
     background-color: rgba(240, 233, 233, 0.5);
@@ -166,7 +170,7 @@ li:hover{
     padding: 5px;
 }
 .star-icon:hover{
-    background-color: rgb(136, 245, 219);
+    background-color: rgb(220, 219, 219);
 }
 .logout-icon{
     width: 1.3cm;
@@ -270,6 +274,7 @@ li:hover{
     font-size: 20px;
     cursor: pointer;
     border-radius:30px;
+    height: 62px;
 }
 #add-task-button:hover{
     background-color: rgb(223, 148, 7);
@@ -343,6 +348,8 @@ select{
 .lists-groups-show-button:hover {
     background-color: rgba(240, 233, 233, 0.5);
     cursor: pointer;
+    border-radius: 40px;
+    transition-duration: 0.4s;
   }
 
 .arrow-icon{

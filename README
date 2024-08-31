@@ -3,9 +3,9 @@ To run the frontend part:
 2. write in the terminal "npm start"
 
 To run the backend part:
-1. go to the terminal and go to the frontend directory.
+1. go to the terminal and go to the backend directory.
 2. write in the terminal "node server.js"
 
 To fix the IP:
-because the PC is using wifi it's IP can be change, so before run the program check if the .env 
+because the PC is using wifi its IP can be change, so before running the program check if the .env 
 file in the frontend is updated (the IP address is correct, using the command ipconfig.exe in the cmd).

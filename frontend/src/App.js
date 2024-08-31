@@ -4,6 +4,7 @@ import Welcome from './Pages/WelcomePage/Welcome.js'
 import LoginPage from './Pages/LoginPage/LoginPage.js';
 import SignUpPage from './Pages/SignUpPage/SignUpPage';
 import AddGroupPage from "./Pages/AddGroupPage/AddGroupPage.js";
+import { useEffect } from 'react';
 
 const App = () => {
 
@@ -15,6 +16,10 @@ const App = () => {
     localStorage.setItem('userMail', userMail);
     
   }
+// change the page title
+  useEffect(() => {
+    document.title = "TaskMaster"
+ }, []);
 
   return ( 
     <Router>
