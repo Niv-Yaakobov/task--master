@@ -1,5 +1,10 @@
 # TaskMaster
 
+<video width="320" height="240" controls>
+  <source src="TaskMaster.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
 ## How to install and run
 download the package and open in a IDE.
 
