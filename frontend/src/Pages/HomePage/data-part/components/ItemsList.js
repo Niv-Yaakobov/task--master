@@ -6,7 +6,7 @@ import axios from 'axios'
 const ItemsList = ({listId, userId,list,setList}) => {
 
     const [isButtonDisabled, setButtonDisabled] = useState(false);
-    const {data, isPending, error} = useFetch((userId && listId) ? `http://${process.env.REACT_APP_BACKEND_IP}:4001/${userId}/lists/${listId}` : null)
+    const {data, isPending, error} = useFetch((userId && listId) ? `https://task-master-backend-7g6m.onrender.com/${userId}/lists/${listId}` : null)
 
     useEffect(() => {
         if (data) {
@@ -31,7 +31,7 @@ const ItemsList = ({listId, userId,list,setList}) => {
         // shallow copy list and update the items array 
         const newList = ({...list , items:updatedListItems})
         setList(newList);
-        await axios.patch(`http://${process.env.REACT_APP_BACKEND_IP}:4001/${userId}/lists/${listId}/${id}`);
+        await axios.patch(`https://task-master-backend-7g6m.onrender.com/${userId}/lists/${listId}/${id}`);
         setButtonDisabled(false)
      };
 
@@ -42,7 +42,7 @@ const ItemsList = ({listId, userId,list,setList}) => {
         const newList = ({...list , items: updatedListItems})
         setList(newList)
         //delete request to the server
-        await axios.delete(`http://${process.env.REACT_APP_BACKEND_IP}:4001/${userId}/lists/${listId}/${id}`);
+        await axios.delete(`https://task-master-backend-7g6m.onrender.com/${userId}/lists/${listId}/${id}`);
     }
 
 

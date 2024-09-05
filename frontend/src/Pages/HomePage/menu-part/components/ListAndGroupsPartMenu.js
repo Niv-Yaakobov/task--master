@@ -10,10 +10,10 @@ const ListAndGroupsPartMenu = ({ handleClickOnMenu, userId,lists,setLists,groups
   const [showGroups , setShowGroups] = useState(false)
 
   const { data: listsData, isPending: listsIsPending, error: listsError } = useFetch(
-    userId ? `http://${process.env.REACT_APP_BACKEND_IP}:4001/${userId}/lists` : null
+    userId ? `https://task-master-backend-7g6m.onrender.com/${userId}/lists` : null
   );
   const { data: groupsData, isPending: groupsIsPending, error: groupsError } = useFetch(
-    userId ? `http://${process.env.REACT_APP_BACKEND_IP}:4001/${userId}/groups` : null
+    userId ? `https://task-master-backend-7g6m.onrender.com/${userId}/groups` : null
   );
 
 
@@ -41,7 +41,7 @@ const ListAndGroupsPartMenu = ({ handleClickOnMenu, userId,lists,setLists,groups
       handleClickOnMenu({kind:'task', info:{title:'My Day'}})
     }
     //delete request to the server
-    await axios.delete(`http://${process.env.REACT_APP_BACKEND_IP}:4001/${userId}/lists/${id}`);
+    await axios.delete(`https://task-master-backend-7g6m.onrender.com/${userId}/lists/${id}`);
   };
 
   const handleDeleteGroup = async (event, id) => {
@@ -54,7 +54,7 @@ const ListAndGroupsPartMenu = ({ handleClickOnMenu, userId,lists,setLists,groups
       handleClickOnMenu({kind:'task', info:{title:'My Day'}})
     }
     //delete request to the server
-    await axios.delete(`http://${process.env.REACT_APP_BACKEND_IP}:4001/${userId}/groups/${id}`);
+    await axios.delete(`https://task-master-backend-7g6m.onrender.com/${userId}/groups/${id}`);
   };
 
   return (

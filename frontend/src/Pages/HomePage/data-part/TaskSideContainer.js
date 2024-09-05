@@ -32,7 +32,7 @@ const TaskSideContainer = ({data, userId}) => {
     }
 
     const createNewTask = async (taskInfo)=>{
-        const responseData = await axios.post(`http://${process.env.REACT_APP_BACKEND_IP}:4001/${userId}/tasks` , taskInfo)
+        const responseData = await axios.post(`https://task-master-backend-7g6m.onrender.com/${userId}/tasks` , taskInfo)
 
         if (!responseData){  
             setError('error occurred')
@@ -43,7 +43,7 @@ const TaskSideContainer = ({data, userId}) => {
 
     const createNewItem = async (itemInfo)=>{
         const listId = data.info._id
-        const responseData = await axios.post(`http://${process.env.REACT_APP_BACKEND_IP}:4001/${userId}/lists/${listId}` , itemInfo)
+        const responseData = await axios.post(`https://task-master-backend-7g6m.onrender.com/${userId}/lists/${listId}` , itemInfo)
 
         if (!responseData){  
             setError('error occurred')
@@ -55,7 +55,7 @@ const TaskSideContainer = ({data, userId}) => {
     }
     const createNewGroupTask = async (groupTaskInfo)=>{
         const groupId = data.info._id
-        const responseData = await axios.post(`http://${process.env.REACT_APP_BACKEND_IP}:4001/${userId}/groups/${groupId}` , groupTaskInfo)
+        const responseData = await axios.post(`https://task-master-backend-7g6m.onrender.com/${userId}/groups/${groupId}` , groupTaskInfo)
 
         if (!responseData){  
             setError('error occurred')

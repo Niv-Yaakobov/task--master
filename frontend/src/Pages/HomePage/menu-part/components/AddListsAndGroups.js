@@ -13,7 +13,7 @@ const AddListsAndGroups = ({userId ,setGroups, setLists,lists,groups}) => {
         if (isAddingList && newListTitle.trim() !== '') {
           // Perform the action to add the new list with newListTitle
           const trimedTitle = newListTitle.trim()
-          const postResponse = await axios.post(`http://${process.env.REACT_APP_BACKEND_IP}:4001/${userId}/lists` , {title:trimedTitle})
+          const postResponse = await axios.post(`https://task-master-backend-7g6m.onrender.com/${userId}/lists` , {title:trimedTitle})
           if(postResponse){
             const list = postResponse.data.list
             const newListArray = [...lists]

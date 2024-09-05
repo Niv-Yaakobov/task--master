@@ -58,7 +58,7 @@ const AddGroupPage = () => {
       setMembers([]);
       const userId = '0'; // don't need the userId
       try {
-        await axios.post(`http://${process.env.REACT_APP_BACKEND_IP}:4001/${userId}/groups`, groupData);
+        await axios.post(`https://task-master-backend-7g6m.onrender.com/${userId}/groups`, groupData);
         setIsLoading(false);
         history.push('/home');
       } catch (error) {

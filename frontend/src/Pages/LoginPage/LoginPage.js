@@ -20,7 +20,7 @@ const LoginPage = ({handleUserLogin}) => {
         e.preventDefault()
         const userInfo = {mail , password}
         
-        const postResponse = await axios.post(`http://${process.env.REACT_APP_BACKEND_IP}:4001/login` , userInfo)
+        const postResponse = await axios.post(`https://task-master-backend-7g6m.onrender.com/login` , userInfo)
 
         if (!postResponse){  
             setError('error occurred')
